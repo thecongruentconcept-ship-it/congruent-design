@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Congruent Concepts | Desert landscape design &amp; smart watering, Lake Havasu</title>
-<meta name="description" content="Landscape design, smart watering and care for Lake Havasu City yards, from 30 years of golf course and landscape construction.">
+<title>Congruent Concepts | Landscape design for new construction, Lake Havasu City</title>
+<meta name="description" content="Landscape and water design for custom residential and commercial new construction in Lake Havasu City and the Southwest.">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <meta property="og:title" content="Congruent Concepts">
-<meta property="og:description" content="Desert landscape design, smart watering and care in Lake Havasu City.">
+<meta property="og:description" content="Landscape and water design for custom residential and commercial new construction.">
 <meta property="og:image" content="https://congruent.design/assets/cc-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --night:#0D1B2A; --navy:#13253A; --navy-2:#1B3049;
+  --night:#0D1B2A; --navy:#13253A; --navy-2:#1B3049; --navy-3:#24405F;
   --brass:#C6923A; --brass-soft:#D8AE63;
   --silver:#B8C1CC; --mist:#F4F1EC; --sand:#D6CDC1; --ink:#0D1B2A; --ink-soft:#4E5A66;
   --serif:'Cormorant Garamond', Georgia, serif;
@@ -24,101 +24,120 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
-body{background:var(--night);color:var(--mist);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{background:var(--night);color:var(--mist);font-family:var(--sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
 img{display:block;max-width:100%}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--brass-soft);outline-offset:3px;border-radius:2px}
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+h2{font-family:var(--serif);font-weight:500;font-size:clamp(34px,4.2vw,52px);line-height:1.1;max-width:18em}
 
 /* header */
-.top{position:sticky;top:0;z-index:10;background:rgba(13,27,42,.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(174,180,189,.14)}
+.top{position:sticky;top:0;z-index:10;background:rgba(13,27,42,.94);backdrop-filter:blur(8px);border-bottom:1px solid rgba(184,193,204,.14)}
 .top .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
 .brand img{width:38px;height:38px;border-radius:6px}
-.brand span{font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:.02em}
+.brand span{font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:.02em;white-space:nowrap}
 .nav{display:flex;align-items:center;gap:28px;font-size:15px}
 .nav a{text-decoration:none;color:var(--silver)}
 .nav a:hover{color:var(--mist)}
-.nav .call{color:var(--night);background:var(--brass);padding:9px 16px;border-radius:4px;font-weight:600}
+.nav .call{color:var(--night);background:var(--brass);padding:9px 16px;border-radius:4px;font-weight:600;white-space:nowrap}
 .nav .call:hover{background:var(--brass-soft);color:var(--night)}
-@media (max-width:760px){.nav a:not(.call){display:none}.brand span{font-size:18px;white-space:nowrap}.nav .call{white-space:nowrap;padding:8px 12px;font-size:14px}}@media (max-width:560px){.nav .num{display:none}}
+@media (max-width:820px){.nav a:not(.call){display:none}.brand span{font-size:18px}.nav .call{padding:8px 12px;font-size:14px}}
+@media (max-width:560px){.nav .num{display:none}}
 
 /* hero */
-.hero{padding:96px 0 88px;background:radial-gradient(1200px 500px at 85% 10%, #1F3A57 0%, transparent 60%), var(--night)}
+.hero{padding:104px 0 96px;background:radial-gradient(1200px 500px at 85% 10%, #1F3A57 0%, transparent 60%), var(--night)}
 .hero .wrap{display:grid;grid-template-columns:1.35fr 1fr;gap:56px;align-items:center}
-.hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(46px,6.4vw,84px);line-height:1.02;letter-spacing:-.01em;color:var(--mist)}
-.hero p.lede{margin-top:28px;max-width:34em;font-size:20px;color:var(--silver)}
+.hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(46px,6.2vw,82px);line-height:1.03;letter-spacing:-.01em}
+.hero p.lede{margin-top:28px;max-width:33em;font-size:19px;color:var(--silver)}
 .actions{margin-top:36px;display:flex;flex-wrap:wrap;gap:14px}
-.btn{display:inline-block;text-decoration:none;font-weight:600;font-size:16px;padding:14px 22px;border-radius:4px}
+.btn{display:inline-block;text-decoration:none;font-weight:600;font-size:15px;padding:14px 22px;border-radius:4px}
 .btn.solid{background:var(--brass);color:var(--night)}
 .btn.solid:hover{background:var(--brass-soft)}
-.btn.line{border:1px solid rgba(174,180,189,.45);color:var(--mist)}
+.btn.line{border:1px solid rgba(184,193,204,.45);color:var(--mist)}
 .btn.line:hover{border-color:var(--mist)}
 .badge{justify-self:end;width:min(320px,100%)}
 .badge img{width:100%;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.55)}
 @media (max-width:860px){.hero{padding:56px 0 64px}.hero .wrap{grid-template-columns:1fr;gap:40px}.badge{justify-self:start;width:220px}}
 
-/* water strip — the signature */
-.water{background:var(--navy);padding:96px 0;border-top:1px solid rgba(198,146,58,.3);border-bottom:1px solid rgba(198,146,58,.3)}
-.water h2,.section h2,.guide h2{font-family:var(--serif);font-weight:500;font-size:clamp(34px,4.2vw,52px);line-height:1.1;color:var(--mist);max-width:18em}
-.water .intro{margin-top:18px;max-width:40em;color:var(--silver)}
-.picker{margin-top:40px;display:flex;flex-wrap:wrap;gap:10px}
-.picker button{font:inherit;font-size:16px;cursor:pointer;background:transparent;color:var(--mist);border:1px solid rgba(174,180,189,.35);border-radius:999px;padding:10px 18px}
-.picker button[aria-pressed="true"]{background:var(--brass);border-color:var(--brass);color:var(--night);font-weight:600}
-.picker button:hover{border-color:var(--mist)}
-.strip{margin-top:36px;display:grid;grid-template-columns:repeat(14,1fr);gap:6px}
-.day{aspect-ratio:3/4;border-radius:4px;background:var(--navy-2);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:8px 2px;font-size:12px;color:var(--ink-soft)}
-.day .n{color:#6F7E8F}
-.day svg{width:44%;height:auto;opacity:0;transform:translateY(-6px);transition:opacity .35s ease, transform .35s ease}
-.day.on{background:#1E3A57}
-.day.on svg{opacity:1;transform:none}
-.day.on .n{color:var(--mist)}
-.readout{margin-top:32px;display:grid;grid-template-columns:repeat(3,auto) 1fr;gap:12px 48px;align-items:baseline}
-.readout .v{font-family:var(--serif);font-size:44px;line-height:1;color:var(--brass-soft)}
-.readout .k{font-size:14px;color:var(--silver);margin-top:6px}
-.readout .why{color:var(--silver);max-width:32em;font-size:16px}
-.fine{margin-top:28px;font-size:14px;color:#7D8B9B;max-width:52em}
-@media (max-width:760px){.strip{grid-template-columns:repeat(7,1fr)}.readout{grid-template-columns:repeat(3,1fr);gap:20px}.readout .why{grid-column:1/-1}.readout .v{font-size:34px}}
-
 /* light sections */
 .section{padding:104px 0}
 .light{background:var(--mist);color:var(--ink)}
-.light h2{color:var(--ink)}
 .services{margin-top:56px;display:grid;grid-template-columns:repeat(3,1fr);gap:48px}
 .services h3{font-family:var(--serif);font-size:30px;font-weight:600;line-height:1.15;padding-top:18px;border-top:2px solid var(--brass)}
 .services p{margin-top:12px;color:var(--ink-soft)}
-.services ul{margin-top:14px;list-style:none;color:var(--ink)}
-.services li{padding:7px 0;border-bottom:1px solid var(--sand);font-size:16px}
+.services ul{margin-top:14px;list-style:none}
+.services li{padding:7px 0;border-bottom:1px solid var(--sand);font-size:15px}
 @media (max-width:860px){.services{grid-template-columns:1fr;gap:40px}}
-
-.steps{margin-top:56px;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;counter-reset:s;list-style:none}
+.method-h{margin-top:104px}
+.method-sub{margin-top:14px;color:var(--ink-soft);max-width:38em}
+.steps{margin-top:48px;display:grid;grid-template-columns:repeat(5,1fr);gap:28px;counter-reset:s;list-style:none}
 .steps li{counter-increment:s}
-.steps li::before{content:counter(s);display:block;font-family:var(--serif);font-size:56px;line-height:1;color:var(--brass)}
-.steps h3{margin-top:12px;font-size:18px;font-weight:600}
-.steps p{margin-top:8px;font-size:16px;color:var(--ink-soft)}
-@media (max-width:860px){.steps{grid-template-columns:1fr 1fr}}
+.steps li::before{content:counter(s);display:block;font-family:var(--serif);font-size:52px;line-height:1;color:var(--brass)}
+.steps h3{margin-top:12px;font-size:17px;font-weight:600}
+.steps p{margin-top:8px;font-size:15px;color:var(--ink-soft)}
+@media (max-width:960px){.steps{grid-template-columns:1fr 1fr}}
 @media (max-width:520px){.steps{grid-template-columns:1fr}}
 
-/* about */
-.about{background:var(--night)}
-.about .wrap{display:grid;grid-template-columns:1fr 1.4fr;gap:64px;align-items:start}
-.about blockquote{font-family:var(--serif);font-style:italic;font-size:clamp(28px,3.2vw,40px);line-height:1.25;color:var(--brass-soft)}
-.about p{color:var(--silver);margin-bottom:18px;max-width:36em}
-.about p strong{color:var(--mist);font-weight:600}
-@media (max-width:860px){.about .wrap{grid-template-columns:1fr;gap:32px}}
+/* calculator — the signature */
+.water{background:var(--navy);padding:104px 0;border-top:1px solid rgba(198,146,58,.3);border-bottom:1px solid rgba(198,146,58,.3)}
+.water .intro{margin-top:18px;max-width:42em;color:var(--silver)}
+.calc{margin-top:48px;display:grid;grid-template-columns:minmax(280px,380px) 1fr;gap:48px;align-items:start}
+@media (max-width:900px){.calc{grid-template-columns:1fr;gap:36px}}
+.field{margin-bottom:22px}
+.field > label,.field > .lbl{display:block;font-size:14px;font-weight:600;color:var(--mist);margin-bottom:8px}
+.field .hint{font-size:13px;color:#8D9AA9;margin-top:6px}
+input,select{font:inherit;font-size:16px;color:var(--mist);background:var(--night);border:1px solid rgba(184,193,204,.35);border-radius:4px;padding:11px 12px;width:100%}
+input:focus,select:focus{border-color:var(--brass-soft);outline:none}
+.seg{display:flex;border:1px solid rgba(184,193,204,.35);border-radius:4px;overflow:hidden}
+.seg button{flex:1;font:inherit;font-size:14px;padding:10px 6px;background:transparent;color:var(--silver);border:0;cursor:pointer}
+.seg button+button{border-left:1px solid rgba(184,193,204,.35)}
+.seg button[aria-pressed="true"]{background:var(--brass);color:var(--night);font-weight:600}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.row2 label{font-size:13px;color:var(--silver);display:block;margin-bottom:6px;font-weight:400}
+.plantmeta{font-size:13px;color:#8D9AA9;margin-top:8px;min-height:1.4em}
+.plantmeta .warn{color:var(--brass-soft)}
+.etline{font-size:13px;color:var(--silver);margin-top:8px}
+.result .when{font-size:15px;color:var(--silver)}
+.result .when strong{color:var(--mist);font-weight:600}
+.big{margin-top:22px;display:grid;grid-template-columns:repeat(3,auto);justify-content:start;gap:12px 52px}
+.big .v{font-family:var(--serif);font-size:48px;line-height:1;color:var(--brass-soft)}
+.big .k{font-size:13px;color:var(--silver);margin-top:8px}
+.strip{margin-top:32px;display:grid;grid-template-columns:repeat(14,1fr);gap:5px}
+.day{min-width:0;overflow:hidden;aspect-ratio:3/4;border-radius:4px;background:var(--navy-2);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:7px 2px;font-size:11px;line-height:1.2;color:#6F7E8F;text-align:center}
+.day svg{width:44%;height:auto;opacity:0;transition:opacity .3s ease}
+.day.on{background:var(--navy-3);color:var(--mist)}
+.day.on svg{opacity:1}
+.why{margin-top:28px;color:var(--silver);font-size:15px;max-width:40em}
+.fine{margin-top:20px;font-size:13px;color:#8D9AA9;max-width:46em}
+.fine a{color:var(--silver)}
+@media (max-width:560px){.strip{grid-template-columns:repeat(7,1fr)}.big{grid-template-columns:repeat(3,1fr);gap:16px}.big .v{font-size:34px}}
 
-/* guide + contact */
-.guide{background:var(--navy);padding:96px 0}
-.guide .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:56px;align-items:center}
-.guide p{margin-top:16px;color:var(--silver);max-width:34em}
-.contact{display:flex;flex-direction:column;gap:14px}
-.contact a.big{font-family:var(--serif);font-size:38px;line-height:1.1;text-decoration:none;color:var(--mist)}
-.contact a.big:hover{color:var(--brass-soft)}
-.contact .k{font-size:14px;color:var(--silver)}
-@media (max-width:860px){.guide .wrap{grid-template-columns:1fr;gap:40px}.contact a.big{font-size:30px}}
+/* experience */
+.exp .wrap{display:grid;grid-template-columns:1fr 1.3fr;gap:64px;align-items:start}
+.exp .lead{font-family:var(--serif);font-size:clamp(26px,2.8vw,34px);line-height:1.3;color:var(--mist)}
+.exp p{color:var(--silver);margin-top:18px;max-width:34em}
+.record{list-style:none}
+.record li{display:grid;grid-template-columns:1fr auto;gap:4px 24px;padding:16px 0;border-bottom:1px solid rgba(184,193,204,.18)}
+.record li:first-child{border-top:1px solid rgba(184,193,204,.18)}
+.record b{font-weight:600;color:var(--mist);font-size:16px}
+.record span{color:var(--silver);font-size:15px;grid-column:1/-1}
+.record i{font-style:normal;color:#8D9AA9;font-size:14px;white-space:nowrap}
+@media (max-width:860px){.exp .wrap{grid-template-columns:1fr;gap:36px}}
 
-footer{padding:40px 0 56px;font-size:14px;color:#7D8B9B;border-top:1px solid rgba(174,180,189,.14)}
+/* contact */
+.contact{background:var(--navy);padding:96px 0}
+.contact .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:56px;align-items:center}
+.contact p{margin-top:16px;color:var(--silver);max-width:32em}
+.lines{display:flex;flex-direction:column;gap:10px}
+.lines .k{font-size:13px;color:var(--silver);margin-top:12px}
+.lines a{font-family:var(--serif);font-size:36px;line-height:1.15;text-decoration:none;word-break:break-word}
+.lines a.mail{font-size:26px}
+.lines a:hover{color:var(--brass-soft)}
+@media (max-width:860px){.contact .wrap{grid-template-columns:1fr;gap:36px}.lines a{font-size:30px}.lines a.mail{font-size:22px}}
+
+footer{padding:40px 0 56px;font-size:13px;color:#8D9AA9;border-top:1px solid rgba(184,193,204,.14)}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
 footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
 </style>
@@ -129,9 +148,10 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Congruent Concepts home"><img src="assets/cc-monogram.png" alt=""><span>Congruent Concepts</span></a>
     <nav class="nav" aria-label="Main">
-      <a href="#water">Watering</a>
       <a href="#services">Services</a>
-      <a href="#about">About</a>
+      <a href="#method">Method</a>
+      <a href="#water">Watering calculator</a>
+      <a href="#experience">Experience</a>
       <a class="call" href="tel:+17028638618">Call<span class="num"> 702.863.8618</span></a>
     </nav>
   </div>
@@ -141,96 +161,149 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
   <section class="hero">
     <div class="wrap">
       <div>
-        <h1>Landscapes designed for the desert they live in.</h1>
-        <p class="lede">Landscape design, smart watering and ongoing care for Lake Havasu City homes, built on 30 years of golf course and landscape construction.</p>
+        <h1>Landscape design for new construction in the desert.</h1>
+        <p class="lede">Custom residential and commercial landscapes, with grading, drainage and water designed in from the start. Lake Havasu City and the Southwest.</p>
         <div class="actions">
-          <a class="btn solid" href="mailto:thecongruentconcept@gmail.com?subject=Property%20walk%20request">Book a property walk</a>
-          <a class="btn line" href="#water">See how we water</a>
+          <a class="btn solid" href="mailto:thecongruentconcept@gmail.com?subject=Consultation%20request">Request a consultation</a>
+          <a class="btn line" href="#water">Use the watering calculator</a>
         </div>
       </div>
       <div class="badge"><img src="assets/cc-logo.png" alt="Congruent Concepts logo: Design, Manage, Assess, Solve" width="320" height="322"></div>
     </div>
   </section>
 
-  <section class="water" id="water" aria-labelledby="water-h">
-    <div class="wrap">
-      <h2 id="water-h">Two weeks of a Havasu July, plant by plant.</h2>
-      <p class="intro">Every plant gets its own schedule, worked out from its water needs, its root depth and how much water our sandy soil can hold. Pick a plant to see its drip schedule on a 110° day.</p>
-
-      <div class="picker" role="group" aria-label="Choose a plant">
-        <button type="button" data-p="0" aria-pressed="true">Lantana</button>
-        <button type="button" data-p="1" aria-pressed="false">Texas Ranger</button>
-        <button type="button" data-p="2" aria-pressed="false">Red Yucca</button>
-        <button type="button" data-p="3" aria-pressed="false">Agave &amp; barrel cactus</button>
-      </div>
-
-      <div class="strip" id="strip" aria-hidden="true"></div>
-
-      <div class="readout" aria-live="polite">
-        <div><div class="v" id="r-every">2 days</div><div class="k">Water every</div></div>
-        <div><div class="v" id="r-run">58 min</div><div class="k">Drip runtime</div></div>
-        <div><div class="v" id="r-gal">4.9 gal</div><div class="k">Per watering</div></div>
-        <p class="why" id="r-why"></p>
-      </div>
-      <p class="fine">Established plants on pressure-compensating drip in sandy loam, full southwest sun, 11–14 mph wind and 110° days. Reference evapotranspiration from the AZMET Fort Mohave station; plant water factors from WUCOLS Low Desert ratings, calibrated in the field. Cooler months stretch every interval out.</p>
-    </div>
-  </section>
-
   <section class="section light" id="services" aria-labelledby="svc-h">
     <div class="wrap">
-      <h2 id="svc-h">Design, water and care from one set of hands.</h2>
+      <h2 id="svc-h">Three disciplines, one design.</h2>
       <div class="services">
         <div>
           <h3>Landscape design</h3>
-          <p>Plans drawn for how the yard will look, drain and drink, before anything goes in the ground.</p>
-          <ul><li>Desert and xeriscape planting plans</li><li>Grading and drainage</li><li>Hardscape and lighting layout</li><li>Budgets you can build to</li></ul>
+          <p>Planting, hardscape, lighting and grading for custom homes and commercial sites, drawn to be built exactly as designed.</p>
+          <ul><li>Site and planting plans</li><li>Grading and drainage</li><li>Hardscape, lighting and outdoor living</li><li>Construction documents and estimates</li></ul>
         </div>
         <div>
-          <h3>Smart watering</h3>
-          <p>Drip zones and weather-based controllers set to what each plant actually uses, then checked against the meter.</p>
-          <ul><li>Zone and emitter design</li><li>Weather-based controller setup</li><li>Flow and leak monitoring</li><li>Seasonal schedule changes</li></ul>
+          <h3>Irrigation and water design</h3>
+          <p>Zones, emitters and weather-based control specified plant by plant, so every gallon has a reason.</p>
+          <ul><li>Zone and emitter design</li><li>Weather-based controller specification</li><li>Flow and leak monitoring</li><li>Landscape water budgets</li></ul>
         </div>
         <div>
-          <h3>Care and maintenance</h3>
-          <p>Ongoing visits that keep the design on track and the water bill where it should be.</p>
-          <ul><li>Irrigation checks and repairs</li><li>Pruning for desert plants</li><li>Plant health assessments</li><li>Yearly property review</li></ul>
+          <h3>Consulting</h3>
+          <p>Assessments and owner's representation. We determine what a landscape needs, direct the people caring for it and confirm the work is right.</p>
+          <ul><li>Property and irrigation assessments</li><li>Maintenance direction</li><li>Owner's representation during construction</li><li>Plan review for builders and architects</li></ul>
         </div>
       </div>
 
-      <h2 style="margin-top:104px">How a project goes</h2>
+      <h2 class="method-h" id="method">The Congruent Method</h2>
+      <p class="method-sub">Every project follows the same five steps, from the first site visit to the years after handover.</p>
       <ol class="steps">
-        <li><h3>Property walk</h3><p>We walk the yard together: sun, soil, slope, water and what you want from it.</p></li>
-        <li><h3>Design and estimate</h3><p>A drawn plan, a plant list and a clear price, with options if the budget needs them.</p></li>
-        <li><h3>Installation</h3><p>Built by our licensed installation partner, with Congruent overseeing the work.</p></li>
-        <li><h3>Watering and care</h3><p>The schedule is tuned after planting, then adjusted each season.</p></li>
+        <li><h3>Assess</h3><p>The site as it is: sun, soil, slope, water, views and how it will be used.</p></li>
+        <li><h3>Align</h3><p>Scope, budget and priorities agreed before design begins.</p></li>
+        <li><h3>Design</h3><p>One complete plan: planting, hardscape, grading, lighting and irrigation.</p></li>
+        <li><h3>Execute</h3><p>Built by licensed partners, with Congruent overseeing the work to the plan.</p></li>
+        <li><h3>Steward</h3><p>After handover, we assess the landscape and direct the care it needs.</p></li>
       </ol>
     </div>
   </section>
 
-  <section class="section about" id="about" aria-labelledby="about-h">
+  <section class="water" id="water" aria-labelledby="water-h">
     <div class="wrap">
-      <blockquote id="about-h">“I left golf because of how much water it used. Now I design yards that use only what they need.”</blockquote>
-      <div>
-        <p><strong>Mike Brenneman</strong> founded Congruent Concepts after three decades building golf courses and landscapes: underground irrigation, grading and drainage, and the budgets and crews that hold a project together.</p>
-        <p>He grew up outdoors in Wadena, Minnesota, and now works where water matters most. Every Congruent yard is designed around the desert it sits in, with plants chosen for Havasu heat and watering set by the numbers rather than by habit.</p>
-        <p>Design, manage, assess, solve: one person accountable from the first walk to the fifth summer.</p>
+      <h2 id="water-h">How much water does it need?</h2>
+      <p class="intro">The same method we use to design irrigation, open to anyone. Choose a plant and a day, and the calculator works out a drip schedule from that day's water loss, the plant's water needs, its root depth and your soil.</p>
+
+      <div class="calc">
+        <form id="calc" onsubmit="return false" aria-label="Watering calculator">
+          <div class="field">
+            <label for="plant">Plant</label>
+            <input id="plant" list="plants" autocomplete="off" placeholder="Start typing, e.g. Lantana" value="Lantana Tree">
+            <datalist id="plants"></datalist>
+            <div class="plantmeta" id="plantmeta"></div>
+          </div>
+
+          <div class="field">
+            <span class="lbl" id="when-l">Day</span>
+            <div class="seg" role="group" aria-labelledby="when-l">
+              <button type="button" data-mode="today" aria-pressed="true">Today</button>
+              <button type="button" data-mode="date" aria-pressed="false">Pick a date</button>
+              <button type="button" data-mode="et" aria-pressed="false">Enter ET</button>
+            </div>
+            <div id="m-date" hidden style="margin-top:10px"><input type="date" id="date" aria-label="Date"></div>
+            <div id="m-et" hidden style="margin-top:10px"><input type="number" id="etin" min="0.01" max="0.6" step="0.01" value="0.30" aria-label="Reference ET in inches per day"><div class="hint">Reference ET in inches per day, from your controller or weather station.</div></div>
+            <div class="etline" id="etline"></div>
+          </div>
+
+          <div class="field">
+            <label for="sun">Exposure</label>
+            <select id="sun">
+              <option value="0.7">Shade or north side</option>
+              <option value="0.9">Part sun</option>
+              <option value="1.1" selected>Full sun</option>
+              <option value="1.3">Full southwest sun and wind</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="soil">Soil</label>
+            <select id="soil">
+              <option value="1.0">Sandy fill</option>
+              <option value="1.5" selected>Sandy loam (most Havasu yards)</option>
+              <option value="2.0">Loam or amended soil</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <span class="lbl">Drip at this plant</span>
+            <div class="row2">
+              <div><label for="em">Emitters</label><input type="number" id="em" min="1" max="40" step="1"></div>
+              <div><label for="gph">Gallons per hour each</label><input type="number" id="gph" min="0.5" max="24" step="0.5"></div>
+            </div>
+          </div>
+        </form>
+
+        <div class="result" aria-live="polite">
+          <p class="when" id="when"></p>
+          <div class="big">
+            <div><div class="v" id="r-every">–</div><div class="k">Water every</div></div>
+            <div><div class="v" id="r-run">–</div><div class="k">Drip runtime</div></div>
+            <div><div class="v" id="r-gal">–</div><div class="k">Per watering</div></div>
+          </div>
+          <div class="strip" id="strip" aria-hidden="true"></div>
+          <p class="why" id="why"></p>
+          <p class="fine">For established plants on pressure-compensating drip, 90% efficient. Water is applied when half of the root zone's stored water is used. Weather: <span id="src">typical daily reference ET for the Lower Colorado River desert (CIMIS Zone 18)</span>; live readings, when available, come from the <a href="https://azmet.arizona.edu/application-areas/evapotranspiration/station-level-summaries/az40" rel="noopener">AZMET Fort Mohave station</a>. Plant water factors from WUCOLS Low Desert ratings, calibrated in the field. New plantings need more frequent water until established.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="guide" id="contact" aria-labelledby="guide-h">
+  <section class="section exp" id="experience" aria-labelledby="exp-h">
     <div class="wrap">
       <div>
-        <h2 id="guide-h">Get the Havasu Watering Guide.</h2>
-        <p>A month-by-month drip schedule for the plants Havasu yards actually grow, from the same method shown above. Email us and we'll send it when it's ready, free.</p>
-        <div class="actions"><a class="btn solid" href="mailto:thecongruentconcept@gmail.com?subject=Send%20me%20the%20Havasu%20Watering%20Guide">Email me the guide</a></div>
+        <h2 id="exp-h">Thirty years building to a standard.</h2>
+        <p class="lead" style="margin-top:28px">Mike Brenneman founded Congruent Concepts after three decades in golf course and high-end landscape construction.</p>
+        <p>That work covered underground irrigation, grading and drainage, water-conscious planting, and the budgets and crews that carry a project from plan to finish. Congruent brings it to new construction, where the landscape and its water are designed once and done right.</p>
       </div>
-      <div class="contact">
+      <ul class="record">
+        <li><b>Multimillion-dollar estates</b><i>East Hampton, New York</i><span>Project manager for luxury residential landscape construction.</span></li>
+        <li><b>Kuwait International Golf Club</b><i>Fahaheel, Kuwait</i><span>Construction superintendent, including a 13-kilometer irrigation pumping system.</span></li>
+        <li><b>Golf course management</b><i>Minnesota and California</i><span>Superintendent roles focused on water conservation and controlled effluent water use.</span></li>
+        <li><b>Commercial landscape accounts</b><i>Las Vegas, Nevada</i><span>Account manager for large commercial properties.</span></li>
+        <li><b>Golf and resort construction</b><i>Lake Havasu City, Arizona</i><span>Grading, drainage and erosion control in golf course construction, and project management on the Riviera project.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="contact" id="contact" aria-labelledby="contact-h">
+    <div class="wrap">
+      <div>
+        <h2 id="contact-h">Start with an assessment.</h2>
+        <p>Tell us about the property, the plans and the timeline. We'll set a time to walk the site.</p>
+        <div class="actions"><a class="btn solid" href="mailto:thecongruentconcept@gmail.com?subject=Consultation%20request">Request a consultation</a></div>
+      </div>
+      <div class="lines">
         <div class="k">Call or text</div>
-        <a class="big" href="tel:+17028638618">702.863.8618</a>
-        <div class="k" style="margin-top:14px">Email</div>
-        <a class="big" style="font-size:26px;word-break:break-all" href="mailto:thecongruentconcept@gmail.com">thecongruentconcept@gmail.com</a>
-        <div class="k" style="margin-top:14px">Serving Lake Havasu City, Arizona</div>
+        <a href="tel:+17028638618">702.863.8618</a>
+        <div class="k">Email</div>
+        <a class="mail" href="mailto:thecongruentconcept@gmail.com">thecongruentconcept@gmail.com</a>
+        <div class="k">Lake Havasu City, Arizona</div>
       </div>
     </div>
   </section>
@@ -239,33 +312,115 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
 <footer>
   <div class="wrap">
     <em>Clarity creates confidence.</em>
-    <span>© <span id="yr">2026</span> Congruent Concepts LLC · Lake Havasu City, AZ · Installation performed by our licensed partner, Landscape Support Services.</span>
+    <span>© <span id="yr">2026</span> Congruent Concepts LLC · Lake Havasu City, AZ · Construction performed by licensed partners.</span>
   </div>
 </footer>
 
 <script>
-const plants=[
-  {every:2,run:"58 min",gal:"4.9 gal",why:"A moderate water user with roots in the top 12 inches. That shallow soil holds about two and a half days of what it drinks in July, so it needs water every other day."},
-  {every:5,run:"2 h 32 min",gal:"15.2 gal",why:"Uses less water than lantana and roots down to 18 inches, so a long, deep soak lasts about five days."},
-  {every:6,run:"1 h 38 min",gal:"3.3 gal",why:"A low water user. One 2-gallon-per-hour emitter and a 12-inch root zone carry it almost a week."},
-  {every:13,run:"1 h 47 min",gal:"3.6 gal",why:"Stores water in its own body. One deep watering about every two weeks is plenty; more often invites rot."}
-];
-const strip=document.getElementById('strip');
-const drop='<svg viewBox="0 0 24 32" aria-hidden="true"><path d="M12 1C12 1 2 13.5 2 20a10 10 0 0 0 20 0C22 13.5 12 1 12 1Z" fill="#D8AE63"/></svg>';
-for(let d=1;d<=14;d++){const c=document.createElement('div');c.className='day';c.innerHTML='<span class="n">'+d+'</span>'+drop;strip.appendChild(c);}
-const btns=[...document.querySelectorAll('.picker button')];
-function show(i){
-  const p=plants[i];
-  btns.forEach((b,j)=>b.setAttribute('aria-pressed',j===i));
-  [...strip.children].forEach((c,k)=>c.classList.toggle('on',k%p.every===0));
-  document.getElementById('r-every').textContent=p.every+' days';
-  document.getElementById('r-run').textContent=p.run;
-  document.getElementById('r-gal').textContent=p.gal;
-  document.getElementById('r-why').textContent=p.why;
-}
-btns.forEach((b,i)=>b.addEventListener('click',()=>show(i)));
-show(0);
-document.getElementById('yr').textContent=new Date().getFullYear();
+(function(){
+  // Typical daily reference ET, inches/day, by month: CIMIS Zone 18 monthly normals ÷ days in month.
+  const ZONE18=[2.48,3.36,5.27,6.90,8.68,9.60,9.61,8.68,6.90,4.96,3.00,2.17];
+  const DIM=[31,28.25,31,30,31,30,31,31,30,31,30,31];
+  const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const daily=ZONE18.map((v,i)=>v/DIM[i]);
+  function typicalET(d){ // interpolate between mid-month values
+    const m=d.getMonth(), day=d.getDate(), mid=DIM[m]/2;
+    let a=m, b, t;
+    if(day>=mid){ b=(m+1)%12; t=(day-mid)/DIM[m]; } else { b=m; a=(m+11)%12; t=(day+DIM[a]/2)/((DIM[a]+DIM[m])/2); }
+    return daily[a]+(daily[b]-daily[a])*Math.min(Math.max(t,0),1);
+  }
+  const $=id=>document.getElementById(id);
+  const fmtDate=d=>MON[d.getMonth()]+' '+d.getDate();
+  let plants=[], suit=[], byName={}, mode='today', live=null, cur=null;
+
+  function iso(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+  const today=new Date(); $('date').value=iso(today);
+
+  // Live reading: yesterday's reference ET at AZMET Fort Mohave (az40). Falls back silently.
+  function tryLive(){
+    const y=new Date(today); y.setDate(y.getDate()-1);
+    const url='https://api.azmet.arizona.edu/v1/observations/daily/az40/'+iso(y)+'T00:00/P0DT0H';
+    const ctl=new AbortController(); setTimeout(()=>ctl.abort(),5000);
+    fetch(url,{signal:ctl.signal}).then(r=>r.ok?r.json():null).then(j=>{
+      const rec=j&&(Array.isArray(j.data)?j.data[0]:(Array.isArray(j)?j[0]:null)); if(!rec) return;
+      let v=rec.eto_pen_mon_in!=null?+rec.eto_pen_mon_in:(rec.eto_pen_mon!=null?+rec.eto_pen_mon/25.4:NaN);
+      if(v>0&&v<1){ live={v:v,date:y}; if(mode==='today') calc(); }
+    }).catch(()=>{});
+  }
+
+  function pickPlant(name){
+    const p=byName[name.trim().toLowerCase()]; if(!p) return false;
+    cur=p; $('em').value=p[7]; $('gph').value=p[8];
+    const s=suit[p[9]]||'';
+    const warn=/Not recommended/.test(s)?' <span class="warn">· Not recommended for Havasu</span>':(/care/.test(s)?' <span class="warn">· Use with care in Havasu</span>':'');
+    $('plantmeta').innerHTML=(p[1]?'<i>'+esc(p[1])+'</i> · ':'')+esc(p[2])+' · class '+esc(p[3])+warn;
+    return true;
+  }
+  function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+  function dayFor(){
+    if(mode==='date'){ const v=$('date').value; if(v){const [Y,M,D]=v.split('-').map(Number); return new Date(Y,M-1,D);} }
+    return new Date(today);
+  }
+  function calc(){
+    if(!cur) return;
+    const start=dayFor();
+    let et, label, src;
+    if(mode==='et'){ et=Math.max(0.01,+$('etin').value||0.3); label=' on a day with reference ET of <strong>'+et.toFixed(2)+' in</strong>'; src='the reference ET you entered'; }
+    else if(mode==='today' && live){ et=live.v; label=' <strong>today</strong>, using yesterday’s measured reference ET of <strong>'+et.toFixed(2)+' in</strong> at Fort Mohave'; src='measured reference ET from the AZMET Fort Mohave station'; }
+    else { et=typicalET(start); label=(mode==='today'?' <strong>today</strong>':' on <strong>'+fmtDate(start)+'</strong>')+', at a typical reference ET of <strong>'+et.toFixed(2)+' in</strong> a day'; src='typical daily reference ET for the Lower Colorado River desert (CIMIS Zone 18)'; }
+    $('src').textContent=src;
+    $('etline').textContent=mode==='et'?'':(mode==='today'&&live?'Measured '+fmtDate(live.date)+': '+live.v.toFixed(2)+' in/day':'Typical for '+fmtDate(start)+': '+typicalET(start).toFixed(2)+' in/day');
+
+    const kf=cur[4], spread=cur[5], root=cur[6];
+    const em=Math.max(1,+$('em').value||cur[7]), gph=Math.max(0.5,+$('gph').value||cur[8]);
+    const micro=+$('sun').value, awc=+$('soil').value;
+    const use=et*kf*micro;                         // inches/day the plant uses
+    const area=Math.PI*Math.pow(spread/2,2);       // sq ft of root zone
+    const store=awc*(root/12)*0.5;                 // inches available before watering
+    const maxI=store/use;
+    let every=Math.max(1,Math.floor(maxI));
+    const capped=every>30; if(capped) every=30;
+    const gal=every*use*area*0.623/0.9;
+    const hrs=gal/(em*gph);
+
+    $('when').innerHTML='For '+esc(cur[0])+label+'.';
+    $('r-every').textContent=capped?'30+ days':(every===1?'Daily':every+' days');
+    const mins=Math.round(hrs*60);
+    $('r-run').textContent=mins<60?mins+' min':Math.floor(mins/60)+'h'+(mins%60?' '+(mins%60)+'m':'');
+    $('r-gal').textContent=(gal<10?gal.toFixed(1):Math.round(gal))+' gal';
+
+    const strip=$('strip'); strip.innerHTML='';
+    for(let k=0;k<14;k++){
+      const d=new Date(start); d.setDate(d.getDate()+k);
+      const c=document.createElement('div'); c.className='day'+(k%every===0?' on':'');
+      c.innerHTML='<span>'+MON[d.getMonth()]+'<br>'+d.getDate()+'</span><svg viewBox="0 0 24 32"><path d="M12 1C12 1 2 13.5 2 20a10 10 0 0 0 20 0C22 13.5 12 1 12 1Z" fill="#D8AE63"/></svg>';
+      strip.appendChild(c);
+    }
+    let why='Its '+root+'-inch root zone holds about '+maxI.toFixed(1)+' days of the water it uses ('+use.toFixed(2)+' in a day), so it is watered every '+(capped?'30 days or more':every===1?'day':every+' days')+' and refilled with '+(gal<10?gal.toFixed(1):Math.round(gal))+' gallons across '+em+' emitter'+(em>1?'s':'')+'.';
+    if(capped) why+=' In cool weather a monthly deep watering, or rain, is enough.';
+    if(hrs>6) why+=' Runtimes this long usually call for more emitters or a bubbler rather than more watering days.';
+    $('why').textContent=why;
+  }
+
+  document.querySelectorAll('.seg button').forEach(b=>b.addEventListener('click',()=>{
+    mode=b.dataset.mode;
+    document.querySelectorAll('.seg button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+    $('m-date').hidden=mode!=='date'; $('m-et').hidden=mode!=='et'; calc();
+  }));
+  $('plant').addEventListener('input',e=>{ if(pickPlant(e.target.value)) calc(); });
+  $('plant').addEventListener('change',e=>{ if(pickPlant(e.target.value)) calc(); });
+  ['date','etin','sun','soil','em','gph'].forEach(id=>$(id).addEventListener('input',calc));
+  $('yr').textContent=today.getFullYear();
+
+  fetch('assets/plants.json').then(r=>r.json()).then(j=>{
+    plants=j.p; suit=j.suit;
+    const dl=$('plants'), frag=document.createDocumentFragment();
+    plants.forEach(p=>{ byName[p[0].toLowerCase()]=p; const o=document.createElement('option'); o.value=p[0]; if(p[1]) o.label=p[1]; frag.appendChild(o); });
+    dl.appendChild(frag);
+    pickPlant($('plant').value)||pickPlant(plants[0][0]); calc(); tryLive();
+  }).catch(()=>{ $('when').textContent='The plant library could not load. Refresh the page to try again.'; });
+})();
 </script>
 </body>
 </html>
