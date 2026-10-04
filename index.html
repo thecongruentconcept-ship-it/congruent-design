@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Congruent Concepts | Desert landscape design &amp; smart watering, Lake Havasu</title>
+<meta name="description" content="Landscape design, smart watering and care for Lake Havasu City yards, from 30 years of golf course and landscape construction.">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:title" content="Congruent Concepts">
+<meta property="og:description" content="Desert landscape design, smart watering and care in Lake Havasu City.">
+<meta property="og:image" content="https://congruent.design/assets/cc-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#09131F; --navy:#0F1E30; --navy-2:#162A40;
+  --brass:#C39A4E; --brass-soft:#D9B977;
+  --silver:#AEB4BD; --mist:#E9ECEE; --ink:#14202E; --ink-soft:#4A5868;
+  --serif:'Cormorant Garamond', Georgia, serif;
+  --sans:'Instrument Sans', system-ui, -apple-system, sans-serif;
+  --wrap:1120px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--night);color:var(--mist);font-family:var(--sans);font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--brass-soft);outline-offset:3px;border-radius:2px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+
+/* header */
+.top{position:sticky;top:0;z-index:10;background:rgba(9,19,31,.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(174,180,189,.14)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand img{width:38px;height:38px;border-radius:6px}
+.brand span{font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:.02em}
+.nav{display:flex;align-items:center;gap:28px;font-size:15px}
+.nav a{text-decoration:none;color:var(--silver)}
+.nav a:hover{color:var(--mist)}
+.nav .call{color:var(--night);background:var(--brass);padding:9px 16px;border-radius:4px;font-weight:600}
+.nav .call:hover{background:var(--brass-soft);color:var(--night)}
+@media (max-width:760px){.nav a:not(.call){display:none}.brand span{font-size:18px;white-space:nowrap}.nav .call{white-space:nowrap;padding:8px 12px;font-size:14px}}@media (max-width:380px){.brand span{display:none}}
+
+/* hero */
+.hero{padding:96px 0 88px;background:radial-gradient(1200px 500px at 85% 10%, #1A3048 0%, transparent 60%), var(--night)}
+.hero .wrap{display:grid;grid-template-columns:1.35fr 1fr;gap:56px;align-items:center}
+.hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(46px,6.4vw,84px);line-height:1.02;letter-spacing:-.01em;color:#F3F4F5}
+.hero p.lede{margin-top:28px;max-width:34em;font-size:20px;color:var(--silver)}
+.actions{margin-top:36px;display:flex;flex-wrap:wrap;gap:14px}
+.btn{display:inline-block;text-decoration:none;font-weight:600;font-size:16px;padding:14px 22px;border-radius:4px}
+.btn.solid{background:var(--brass);color:var(--night)}
+.btn.solid:hover{background:var(--brass-soft)}
+.btn.line{border:1px solid rgba(174,180,189,.45);color:var(--mist)}
+.btn.line:hover{border-color:var(--mist)}
+.badge{justify-self:end;width:min(320px,100%)}
+.badge img{width:100%;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.55)}
+@media (max-width:860px){.hero{padding:56px 0 64px}.hero .wrap{grid-template-columns:1fr;gap:40px}.badge{justify-self:start;width:220px}}
+
+/* water strip — the signature */
+.water{background:var(--navy);padding:96px 0;border-top:1px solid rgba(195,154,78,.25);border-bottom:1px solid rgba(195,154,78,.25)}
+.water h2,.section h2,.guide h2{font-family:var(--serif);font-weight:500;font-size:clamp(34px,4.2vw,52px);line-height:1.1;color:#F3F4F5;max-width:18em}
+.water .intro{margin-top:18px;max-width:40em;color:var(--silver)}
+.picker{margin-top:40px;display:flex;flex-wrap:wrap;gap:10px}
+.picker button{font:inherit;font-size:16px;cursor:pointer;background:transparent;color:var(--mist);border:1px solid rgba(174,180,189,.35);border-radius:999px;padding:10px 18px}
+.picker button[aria-pressed="true"]{background:var(--brass);border-color:var(--brass);color:var(--night);font-weight:600}
+.picker button:hover{border-color:var(--mist)}
+.strip{margin-top:36px;display:grid;grid-template-columns:repeat(14,1fr);gap:6px}
+.day{aspect-ratio:3/4;border-radius:4px;background:var(--navy-2);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:8px 2px;font-size:12px;color:var(--ink-soft)}
+.day .n{color:#6F7E8F}
+.day svg{width:44%;height:auto;opacity:0;transform:translateY(-6px);transition:opacity .35s ease, transform .35s ease}
+.day.on{background:#1E3A57}
+.day.on svg{opacity:1;transform:none}
+.day.on .n{color:var(--mist)}
+.readout{margin-top:32px;display:grid;grid-template-columns:repeat(3,auto) 1fr;gap:12px 48px;align-items:baseline}
+.readout .v{font-family:var(--serif);font-size:44px;line-height:1;color:var(--brass-soft)}
+.readout .k{font-size:14px;color:var(--silver);margin-top:6px}
+.readout .why{color:var(--silver);max-width:32em;font-size:16px}
+.fine{margin-top:28px;font-size:14px;color:#7D8B9B;max-width:52em}
+@media (max-width:760px){.strip{grid-template-columns:repeat(7,1fr)}.readout{grid-template-columns:repeat(3,1fr);gap:20px}.readout .why{grid-column:1/-1}.readout .v{font-size:34px}}
+
+/* light sections */
+.section{padding:104px 0}
+.light{background:var(--mist);color:var(--ink)}
+.light h2{color:var(--ink)}
+.services{margin-top:56px;display:grid;grid-template-columns:repeat(3,1fr);gap:48px}
+.services h3{font-family:var(--serif);font-size:30px;font-weight:600;line-height:1.15;padding-top:18px;border-top:2px solid var(--brass)}
+.services p{margin-top:12px;color:var(--ink-soft)}
+.services ul{margin-top:14px;list-style:none;color:var(--ink)}
+.services li{padding:7px 0;border-bottom:1px solid #CDD3D8;font-size:16px}
+@media (max-width:860px){.services{grid-template-columns:1fr;gap:40px}}
+
+.steps{margin-top:56px;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;counter-reset:s;list-style:none}
+.steps li{counter-increment:s}
+.steps li::before{content:counter(s);display:block;font-family:var(--serif);font-size:56px;line-height:1;color:var(--brass)}
+.steps h3{margin-top:12px;font-size:18px;font-weight:600}
+.steps p{margin-top:8px;font-size:16px;color:var(--ink-soft)}
+@media (max-width:860px){.steps{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+
+/* about */
+.about{background:var(--night)}
+.about .wrap{display:grid;grid-template-columns:1fr 1.4fr;gap:64px;align-items:start}
+.about blockquote{font-family:var(--serif);font-style:italic;font-size:clamp(28px,3.2vw,40px);line-height:1.25;color:var(--brass-soft)}
+.about p{color:var(--silver);margin-bottom:18px;max-width:36em}
+.about p strong{color:var(--mist);font-weight:600}
+@media (max-width:860px){.about .wrap{grid-template-columns:1fr;gap:32px}}
+
+/* guide + contact */
+.guide{background:var(--navy);padding:96px 0}
+.guide .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:56px;align-items:center}
+.guide p{margin-top:16px;color:var(--silver);max-width:34em}
+.contact{display:flex;flex-direction:column;gap:14px}
+.contact a.big{font-family:var(--serif);font-size:38px;line-height:1.1;text-decoration:none;color:#F3F4F5}
+.contact a.big:hover{color:var(--brass-soft)}
+.contact .k{font-size:14px;color:var(--silver)}
+@media (max-width:860px){.guide .wrap{grid-template-columns:1fr;gap:40px}.contact a.big{font-size:30px}}
+
+footer{padding:40px 0 56px;font-size:14px;color:#7D8B9B;border-top:1px solid rgba(174,180,189,.14)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
+footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Congruent Concepts home"><img src="assets/cc-monogram.png" alt=""><span>Congruent Concepts</span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="#water">Watering</a>
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a class="call" href="tel:+17028638618">Call 702.863.8618</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <h1>Landscapes designed for the desert they live in.</h1>
+        <p class="lede">Landscape design, smart watering and ongoing care for Lake Havasu City homes, built on 30 years of golf course and landscape construction.</p>
+        <div class="actions">
+          <a class="btn solid" href="mailto:thecongruentconcept@gmail.com?subject=Property%20walk%20request">Book a property walk</a>
+          <a class="btn line" href="#water">See how we water</a>
+        </div>
+      </div>
+      <div class="badge"><img src="assets/cc-logo.png" alt="Congruent Concepts logo: Design, Manage, Assess, Solve" width="320" height="322"></div>
+    </div>
+  </section>
+
+  <section class="water" id="water" aria-labelledby="water-h">
+    <div class="wrap">
+      <h2 id="water-h">Two weeks of a Havasu July, plant by plant.</h2>
+      <p class="intro">Every plant gets its own schedule, worked out from its water needs, its root depth and how much water our sandy soil can hold. Pick a plant to see its drip schedule on a 110° day.</p>
+
+      <div class="picker" role="group" aria-label="Choose a plant">
+        <button type="button" data-p="0" aria-pressed="true">Lantana</button>
+        <button type="button" data-p="1" aria-pressed="false">Texas Ranger</button>
+        <button type="button" data-p="2" aria-pressed="false">Red Yucca</button>
+        <button type="button" data-p="3" aria-pressed="false">Agave &amp; barrel cactus</button>
+      </div>
+
+      <div class="strip" id="strip" aria-hidden="true"></div>
+
+      <div class="readout" aria-live="polite">
+        <div><div class="v" id="r-every">2 days</div><div class="k">Water every</div></div>
+        <div><div class="v" id="r-run">58 min</div><div class="k">Drip runtime</div></div>
+        <div><div class="v" id="r-gal">4.9 gal</div><div class="k">Per watering</div></div>
+        <p class="why" id="r-why"></p>
+      </div>
+      <p class="fine">Established plants on pressure-compensating drip in sandy loam, full southwest sun, 11–14 mph wind and 110° days. Reference evapotranspiration from the AZMET Fort Mohave station; plant water factors from WUCOLS Low Desert ratings, calibrated in the field. Cooler months stretch every interval out.</p>
+    </div>
+  </section>
+
+  <section class="section light" id="services" aria-labelledby="svc-h">
+    <div class="wrap">
+      <h2 id="svc-h">Design, water and care from one set of hands.</h2>
+      <div class="services">
+        <div>
+          <h3>Landscape design</h3>
+          <p>Plans drawn for how the yard will look, drain and drink, before anything goes in the ground.</p>
+          <ul><li>Desert and xeriscape planting plans</li><li>Grading and drainage</li><li>Hardscape and lighting layout</li><li>Budgets you can build to</li></ul>
+        </div>
+        <div>
+          <h3>Smart watering</h3>
+          <p>Drip zones and weather-based controllers set to what each plant actually uses, then checked against the meter.</p>
+          <ul><li>Zone and emitter design</li><li>Weather-based controller setup</li><li>Flow and leak monitoring</li><li>Seasonal schedule changes</li></ul>
+        </div>
+        <div>
+          <h3>Care and maintenance</h3>
+          <p>Ongoing visits that keep the design on track and the water bill where it should be.</p>
+          <ul><li>Irrigation checks and repairs</li><li>Pruning for desert plants</li><li>Plant health assessments</li><li>Yearly property review</li></ul>
+        </div>
+      </div>
+
+      <h2 style="margin-top:104px">How a project goes</h2>
+      <ol class="steps">
+        <li><h3>Property walk</h3><p>We walk the yard together: sun, soil, slope, water and what you want from it.</p></li>
+        <li><h3>Design and estimate</h3><p>A drawn plan, a plant list and a clear price, with options if the budget needs them.</p></li>
+        <li><h3>Installation</h3><p>Built by our licensed installation partner, with Congruent overseeing the work.</p></li>
+        <li><h3>Watering and care</h3><p>The schedule is tuned after planting, then adjusted each season.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section about" id="about" aria-labelledby="about-h">
+    <div class="wrap">
+      <blockquote id="about-h">“I left golf because of how much water it used. Now I design yards that use only what they need.”</blockquote>
+      <div>
+        <p><strong>Mike Brenneman</strong> founded Congruent Concepts after three decades building golf courses and landscapes: underground irrigation, grading and drainage, and the budgets and crews that hold a project together.</p>
+        <p>He grew up outdoors in Wadena, Minnesota, and now works where water matters most. Every Congruent yard is designed around the desert it sits in, with plants chosen for Havasu heat and watering set by the numbers rather than by habit.</p>
+        <p>Design, manage, assess, solve: one person accountable from the first walk to the fifth summer.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="guide" id="contact" aria-labelledby="guide-h">
+    <div class="wrap">
+      <div>
+        <h2 id="guide-h">Get the Havasu Watering Guide.</h2>
+        <p>A month-by-month drip schedule for the plants Havasu yards actually grow, from the same method shown above. Email us and we'll send it when it's ready, free.</p>
+        <div class="actions"><a class="btn solid" href="mailto:thecongruentconcept@gmail.com?subject=Send%20me%20the%20Havasu%20Watering%20Guide">Email me the guide</a></div>
+      </div>
+      <div class="contact">
+        <div class="k">Call or text</div>
+        <a class="big" href="tel:+17028638618">702.863.8618</a>
+        <div class="k" style="margin-top:14px">Email</div>
+        <a class="big" style="font-size:26px;word-break:break-all" href="mailto:thecongruentconcept@gmail.com">thecongruentconcept@gmail.com</a>
+        <div class="k" style="margin-top:14px">Serving Lake Havasu City, Arizona</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <em>Clarity creates confidence.</em>
+    <span>© <span id="yr">2026</span> Congruent Concepts LLC · Lake Havasu City, AZ · Installation performed by our licensed partner, Landscape Support Services.</span>
+  </div>
+</footer>
+
+<script>
+const plants=[
+  {every:2,run:"58 min",gal:"4.9 gal",why:"A moderate water user with roots in the top 12 inches. That shallow soil holds about two and a half days of what it drinks in July, so it needs water every other day."},
+  {every:5,run:"2 h 32 min",gal:"15.2 gal",why:"Uses less water than lantana and roots down to 18 inches, so a long, deep soak lasts about five days."},
+  {every:6,run:"1 h 38 min",gal:"3.3 gal",why:"A low water user. One 2-gallon-per-hour emitter and a 12-inch root zone carry it almost a week."},
+  {every:13,run:"1 h 47 min",gal:"3.6 gal",why:"Stores water in its own body. One deep watering about every two weeks is plenty; more often invites rot."}
+];
+const strip=document.getElementById('strip');
+const drop='<svg viewBox="0 0 24 32" aria-hidden="true"><path d="M12 1C12 1 2 13.5 2 20a10 10 0 0 0 20 0C22 13.5 12 1 12 1Z" fill="#D9B977"/></svg>';
+for(let d=1;d<=14;d++){const c=document.createElement('div');c.className='day';c.innerHTML='<span class="n">'+d+'</span>'+drop;strip.appendChild(c);}
+const btns=[...document.querySelectorAll('.picker button')];
+function show(i){
+  const p=plants[i];
+  btns.forEach((b,j)=>b.setAttribute('aria-pressed',j===i));
+  [...strip.children].forEach((c,k)=>c.classList.toggle('on',k%p.every===0));
+  document.getElementById('r-every').textContent=p.every+' days';
+  document.getElementById('r-run').textContent=p.run;
+  document.getElementById('r-gal').textContent=p.gal;
+  document.getElementById('r-why').textContent=p.why;
+}
+btns.forEach((b,i)=>b.addEventListener('click',()=>show(i)));
+show(0);
+document.getElementById('yr').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
