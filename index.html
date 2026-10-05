@@ -251,6 +251,12 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
           </div>
 
           <div class="field">
+            <label for="width">Plant width (feet across)</label>
+            <input type="number" id="width" min="1" max="60" step="0.5">
+            <div class="hint" id="rootline"></div>
+          </div>
+
+          <div class="field">
             <span class="lbl">Drip at this plant</span>
             <div class="row2">
               <div><label for="em">Emitters</label><input type="number" id="em" min="1" max="40" step="1"></div>
@@ -351,7 +357,7 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
 
   function pickPlant(name){
     const p=byName[name.trim().toLowerCase()]; if(!p) return false;
-    cur=p; $('em').value=p[7]; $('gph').value=p[8];
+    cur=p; $('em').value=p[7]; $('gph').value=p[8]; $('width').value=p[5];
     const s=suit[p[9]]||'';
     const warn=/Not recommended/.test(s)?' <span class="warn">· Not recommended for Havasu</span>':(/care/.test(s)?' <span class="warn">· Use with care in Havasu</span>':'');
     $('plantmeta').innerHTML=(p[1]?'<i>'+esc(p[1])+'</i> · ':'')+esc(p[2])+' · class '+esc(p[3])+warn;
@@ -373,7 +379,8 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
     $('src').textContent=src;
     $('etline').textContent=mode==='et'?'':(mode==='today'&&live?'Measured '+fmtDate(live.date)+': '+live.v.toFixed(2)+' in/day':'Typical for '+fmtDate(start)+': '+typicalET(start).toFixed(2)+' in/day');
 
-    const kf=cur[4], spread=cur[5], root=cur[6];
+    const kf=cur[4], root=cur[6], spread=Math.min(60,Math.max(1,+$('width').value||cur[5]));
+    $('rootline').textContent='Root zone '+root+' inches deep. Water need grows with the width of the plant.';
     const em=Math.max(1,Math.round(+$('em').value||cur[7])), gph=Math.max(0.5,+$('gph').value||cur[8]);
     const micro=+$('sun').value, soilOpt=$('soil').selectedOptions[0], awc=+soilOpt.value, wetD=+soilOpt.dataset.wet;
     // 1. Water the plant uses (WUCOLS landscape coefficient method): reference ET x species factor x microclimate.
@@ -406,11 +413,12 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
       strip.appendChild(c);
     }
     const g=v=>(v<10?v.toFixed(1):String(Math.round(v)));
-    let why='It uses about '+g(needGal)+' gallons a day. Its '+em+' emitter'+(em>1?'s':'')+' wet '+Math.round(wetPct*100)+'% of its root zone ('+root+' inches deep), which holds about '+maxI.toFixed(1)+' days of that water, so it is watered every '+(capped?'30 days or more':every===1?'day':every+' days')+' with '+g(gal)+' gallons.';
+    let why='It uses about '+g(needGal)+' gallons a day. Its '+em+' emitter'+(em>1?'s wet ':' wets ')+''+Math.round(wetPct*100)+'% of its root zone ('+root+' inches deep), which holds about '+maxI.toFixed(1)+' days of that water, so it is watered every '+(capped?'30 days or more':every===1?'day':every+' days')+' with '+g(gal)+' gallons.';
     if(short) why+=' The wetted soil cannot hold a full day of water: add emitters so less drains past the roots.';
-    else if(wetPct<0.5) why+=' Extension guidance is to wet at least half the root zone; more emitters would stretch the days between waterings.';
+    else if(wetPct<0.5) why+=' With under half the root zone wet, the soil carries the plant fewer days; a second emitter would stretch the interval.';
     if(capped) why+=' In cool weather a monthly deep watering, or rain, is enough.';
-    if(hrs>6) why+=' Runtimes this long call for more emitters or higher flow emitters.';
+    if(/Tree|Palm/.test(cur[2]) && wetPct<0.25) why+=' A tree this wide draws on roots well beyond its emitters; water it deeply out toward the dripline.';
+    if(hrs>6) why+=' Runtimes this long call for a higher flow emitter.';
     $('why').textContent=why;
   }
 
@@ -421,7 +429,7 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
   }));
   $('plant').addEventListener('input',e=>{ if(pickPlant(e.target.value)) calc(); });
   $('plant').addEventListener('change',e=>{ if(pickPlant(e.target.value)) calc(); });
-  ['date','etin','sun','soil','em','gph'].forEach(id=>$(id).addEventListener('input',calc));
+  ['date','etin','sun','soil','width','em','gph'].forEach(id=>$(id).addEventListener('input',calc));
   $('yr').textContent=today.getFullYear();
 
   fetch('assets/plants.json').then(r=>r.json()).then(j=>{
