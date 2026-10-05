@@ -263,6 +263,12 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
               <div><label for="gph">Gallons per hour each</label><input type="number" id="gph" min="0.5" max="24" step="0.5"></div>
             </div>
           </div>
+
+          <div class="field">
+            <label for="days">Days between waterings</label>
+            <select id="days"><option value="" selected>Recommended</option><option value="1">Every day</option><option value="2">Every 2 days</option><option value="3">Every 3 days</option><option value="4">Every 4 days</option><option value="5">Every 5 days</option><option value="6">Every 6 days</option><option value="7">Every 7 days</option><option value="8">Every 8 days</option><option value="9">Every 9 days</option><option value="10">Every 10 days</option><option value="11">Every 11 days</option><option value="12">Every 12 days</option><option value="13">Every 13 days</option><option value="14">Every 14 days</option><option value="15">Every 15 days</option><option value="16">Every 16 days</option><option value="17">Every 17 days</option><option value="18">Every 18 days</option><option value="19">Every 19 days</option><option value="20">Every 20 days</option><option value="21">Every 21 days</option><option value="22">Every 22 days</option><option value="23">Every 23 days</option><option value="24">Every 24 days</option><option value="25">Every 25 days</option><option value="26">Every 26 days</option><option value="27">Every 27 days</option><option value="28">Every 28 days</option><option value="29">Every 29 days</option><option value="30">Every 30 days</option></select>
+            <div class="hint">Set your own to match a controller program or a watering day restriction. The runtime and gallons adjust to it.</div>
+          </div>
         </form>
 
         <div class="result" aria-live="polite">
@@ -393,13 +399,21 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
     const storeGal=awc*(root/12)*0.5*wetArea*0.623;          // half the available water in the wetted root zone
     const maxI=storeGal/needGal;                              // days until half the stored water is used
     // 3. Schedule: water before the reserve runs out, then refill what was used, plus drip losses (90% efficient).
-    let every=Math.max(1,Math.floor(maxI));
-    const capped=every>30; if(capped) every=30;
+    let rec=Math.max(1,Math.floor(maxI));
+    const capped=rec>30; if(capped) rec=30;
     const short=maxI<1;
-    const gal=every*needGal/0.9;
+    const dOpt=$('days').options[0]; dOpt.textContent='Recommended: '+(capped?'30+ days':rec===1?'every day':'every '+rec+' days');
+    const chosen=+$('days').value||0;
+    const every=chosen||rec;
+    // Water that must go back in: what the plant used since the last watering, but never more than the
+    // wetted root zone can hold (all of its available water). Anything beyond that drains past the roots.
+    const fullGal=storeGal*2;                                  // root zone from wilting point to full
+    const usedGal=Math.min(every*needGal, fullGal);
+    const gal=usedGal/0.9;
+    const dryDay=fullGal/needGal;                              // day the wetted soil would be empty
     const hrs=gal/(em*gph);
     $('when').innerHTML='For '+esc(cur[0])+label+'.';
-    $('r-every').textContent=capped?'30+ days':(every===1?'Daily':every+' days');
+    $('r-every').textContent=(capped&&!chosen)?'30+ days':(every===1?'Daily':every+' days');
     const mins=Math.round(hrs*60);
     $('r-run').textContent=mins<60?mins+' min':Math.floor(mins/60)+'h'+(mins%60?' '+(mins%60)+'m':'');
     $('r-gal').textContent=(gal<10?gal.toFixed(1):Math.round(gal))+' gal';
@@ -413,7 +427,9 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
       strip.appendChild(c);
     }
     const g=v=>(v<10?v.toFixed(1):String(Math.round(v)));
-    let why='It uses about '+g(needGal)+' gallons a day. Its '+em+' emitter'+(em>1?'s wet ':' wets ')+''+Math.round(wetPct*100)+'% of its root zone ('+root+' inches deep), which holds about '+maxI.toFixed(1)+' days of that water, so it is watered every '+(capped?'30 days or more':every===1?'day':every+' days')+' with '+g(gal)+' gallons.';
+    let why='It uses about '+g(needGal)+' gallons a day. Its '+em+' emitter'+(em>1?'s wet ':' wets ')+''+Math.round(wetPct*100)+'% of its root zone ('+root+' inches deep), which holds about '+maxI.toFixed(1)+' days of that water, so the recommended schedule is every '+(capped?'30 days or more':rec===1?'day':rec+' days')+'. '+(chosen?'Watering '+(every===1?'daily':'every '+every+' days')+' puts back ':'Each watering puts back ')+g(gal)+' gallons.';
+    if(chosen && chosen>rec){ if(chosen>dryDay) why+=' On that schedule the wetted soil runs dry after about '+Math.floor(dryDay)+' days, and the plant goes without until the next watering. Water every '+(rec===1?'day':rec+' days')+', or add an emitter.'; else { const n=Math.ceil(chosen-maxI); why+=' That is longer than recommended: for the last '+(n===1?'day':n+' days')+' the plant draws below half its stored water, which stresses it in heat. Recommended: every '+(rec===1?'day':rec+' days')+'.'; } }
+    else if(chosen && chosen<rec) why+=' That is more often than needed, which is fine: shorter runs keep it supplied with no water lost.';
     if(short) why+=' The wetted soil cannot hold a full day of water: add emitters so less drains past the roots.';
     else if(wetPct<0.5) why+=' With under half the root zone wet, the soil carries the plant fewer days; a second emitter would stretch the interval.';
     if(capped) why+=' In cool weather a monthly deep watering, or rain, is enough.';
@@ -429,7 +445,7 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
   }));
   $('plant').addEventListener('input',e=>{ if(pickPlant(e.target.value)) calc(); });
   $('plant').addEventListener('change',e=>{ if(pickPlant(e.target.value)) calc(); });
-  ['date','etin','sun','soil','width','em','gph'].forEach(id=>$(id).addEventListener('input',calc));
+  ['date','etin','sun','soil','width','em','gph','days'].forEach(id=>{$(id).addEventListener('input',calc);$(id).addEventListener('change',calc);});
   $('yr').textContent=today.getFullYear();
 
   fetch('assets/plants.json').then(r=>r.json()).then(j=>{
