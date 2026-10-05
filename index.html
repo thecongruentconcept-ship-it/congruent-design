@@ -101,7 +101,7 @@ input:focus,select:focus{border-color:var(--brass-soft);outline:none}
 .etline{font-size:13px;color:var(--silver);margin-top:8px}
 .result .when{font-size:15px;color:var(--silver)}
 .result .when strong{color:var(--mist);font-weight:600}
-.big{margin-top:22px;display:grid;grid-template-columns:repeat(3,auto);justify-content:start;gap:12px 52px}
+.big{margin-top:22px;display:grid;grid-template-columns:repeat(4,auto);justify-content:start;gap:12px 44px}
 .big .v{font-family:var(--serif);font-size:48px;line-height:1;color:var(--brass-soft)}
 .big .k{font-size:13px;color:var(--silver);margin-top:8px}
 .strip{margin-top:32px;display:grid;grid-template-columns:repeat(14,1fr);gap:5px}
@@ -112,7 +112,7 @@ input:focus,select:focus{border-color:var(--brass-soft);outline:none}
 .why{margin-top:28px;color:var(--silver);font-size:15px;max-width:40em}
 .fine{margin-top:20px;font-size:13px;color:#8D9AA9;max-width:46em}
 .fine a{color:var(--silver)}
-@media (max-width:560px){.strip{grid-template-columns:repeat(7,1fr)}.big{grid-template-columns:repeat(3,1fr);gap:16px}.big .v{font-size:34px}}
+@media (max-width:560px){.strip{grid-template-columns:repeat(7,1fr)}.big{grid-template-columns:repeat(2,1fr);gap:16px}.big .v{font-size:34px}}
 
 /* experience */
 .exp .wrap{display:grid;grid-template-columns:1fr 1.3fr;gap:64px;align-items:start}
@@ -244,9 +244,9 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
           <div class="field">
             <label for="soil">Soil</label>
             <select id="soil">
-              <option value="1.0">Sandy fill</option>
-              <option value="1.5" selected>Sandy loam (most Havasu yards)</option>
-              <option value="2.0">Loam or amended soil</option>
+              <option value="1.0" data-wet="3">Sandy fill</option>
+              <option value="1.5" data-wet="3.5" selected>Sandy loam (most Havasu yards)</option>
+              <option value="2.0" data-wet="4">Loam or amended soil</option>
             </select>
           </div>
 
@@ -265,10 +265,11 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
             <div><div class="v" id="r-every">&nbsp;</div><div class="k">Water every</div></div>
             <div><div class="v" id="r-run">&nbsp;</div><div class="k">Drip runtime</div></div>
             <div><div class="v" id="r-gal">&nbsp;</div><div class="k">Per watering</div></div>
+            <div><div class="v" id="r-wet">&nbsp;</div><div class="k">Root zone wetted</div></div>
           </div>
           <div class="strip" id="strip" aria-hidden="true"></div>
           <p class="why" id="why"></p>
-          <p class="fine">For established plants on pressure-compensating drip, 90% efficient. Water is applied when half of the root zone's stored water is used. Weather: <span id="src">typical daily reference ET for the Lower Colorado River desert (CIMIS Zone 18)</span>; live readings, when available, come from the <a href="https://azmet.arizona.edu/application-areas/evapotranspiration/station-level-summaries/az40" rel="noopener">AZMET Fort Mohave station</a>. Plant water factors from WUCOLS Low Desert ratings, calibrated in the field. New plantings need more frequent water until established.</p>
+          <p class="fine">For established plants on pressure-compensating drip, 90% efficient. Each emitter wets a circle of soil about 3 feet across in sandy fill, 3.5 feet in sandy loam and 4 feet in loam, and only wetted soil stores water for the plant. Water is applied when half of that stored water is used. Weather: <span id="src">typical daily reference ET for the Lower Colorado River desert (CIMIS Zone 18)</span>; live readings, when available, come from the <a href="https://azmet.arizona.edu/application-areas/evapotranspiration/station-level-summaries/az40" rel="noopener">AZMET Fort Mohave station</a>. Plant water factors from WUCOLS Low Desert ratings, calibrated in the field. New plantings need more frequent water until established.</p>
         </div>
       </div>
     </div>
@@ -373,22 +374,29 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
     $('etline').textContent=mode==='et'?'':(mode==='today'&&live?'Measured '+fmtDate(live.date)+': '+live.v.toFixed(2)+' in/day':'Typical for '+fmtDate(start)+': '+typicalET(start).toFixed(2)+' in/day');
 
     const kf=cur[4], spread=cur[5], root=cur[6];
-    const em=Math.max(1,+$('em').value||cur[7]), gph=Math.max(0.5,+$('gph').value||cur[8]);
-    const micro=+$('sun').value, awc=+$('soil').value;
-    const use=et*kf*micro;                         // inches/day the plant uses
-    const area=Math.PI*Math.pow(spread/2,2);       // sq ft of root zone
-    const store=awc*(root/12)*0.5;                 // inches available before watering
-    const maxI=store/use;
+    const em=Math.max(1,Math.round(+$('em').value||cur[7])), gph=Math.max(0.5,+$('gph').value||cur[8]);
+    const micro=+$('sun').value, soilOpt=$('soil').selectedOptions[0], awc=+soilOpt.value, wetD=+soilOpt.dataset.wet;
+    // 1. Water the plant uses (WUCOLS landscape coefficient method): reference ET x species factor x microclimate.
+    const use=et*kf*micro;                                   // inches of water a day over the root zone
+    const area=Math.PI*Math.pow(spread/2,2);                 // root zone area, sq ft (canopy spread)
+    const needGal=use*area*0.623;                            // gallons the plant uses each day
+    // 2. Water the soil can hold for it: only the soil the emitters actually wet stores water.
+    const wetArea=Math.min(area, em*Math.PI*Math.pow(wetD/2,2));
+    const wetPct=wetArea/area;
+    const storeGal=awc*(root/12)*0.5*wetArea*0.623;          // half the available water in the wetted root zone
+    const maxI=storeGal/needGal;                              // days until half the stored water is used
+    // 3. Schedule: water before the reserve runs out, then refill what was used, plus drip losses (90% efficient).
     let every=Math.max(1,Math.floor(maxI));
     const capped=every>30; if(capped) every=30;
-    const gal=every*use*area*0.623/0.9;
+    const short=maxI<1;
+    const gal=every*needGal/0.9;
     const hrs=gal/(em*gph);
-
     $('when').innerHTML='For '+esc(cur[0])+label+'.';
     $('r-every').textContent=capped?'30+ days':(every===1?'Daily':every+' days');
     const mins=Math.round(hrs*60);
     $('r-run').textContent=mins<60?mins+' min':Math.floor(mins/60)+'h'+(mins%60?' '+(mins%60)+'m':'');
     $('r-gal').textContent=(gal<10?gal.toFixed(1):Math.round(gal))+' gal';
+    $('r-wet').textContent=Math.round(wetPct*100)+'%';
 
     const strip=$('strip'); strip.innerHTML='';
     for(let k=0;k<14;k++){
@@ -397,9 +405,12 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
       c.innerHTML='<span>'+MON[d.getMonth()]+'<br>'+d.getDate()+'</span><svg viewBox="0 0 24 32"><path d="M12 1C12 1 2 13.5 2 20a10 10 0 0 0 20 0C22 13.5 12 1 12 1Z" fill="#D8AE63"/></svg>';
       strip.appendChild(c);
     }
-    let why='Its root zone, '+root+' inches deep, holds about '+maxI.toFixed(1)+' days of the water it uses ('+use.toFixed(2)+' in a day), so it is watered every '+(capped?'30 days or more':every===1?'day':every+' days')+' and refilled with '+(gal<10?gal.toFixed(1):Math.round(gal))+' gallons across '+em+' emitter'+(em>1?'s':'')+'.';
+    const g=v=>(v<10?v.toFixed(1):String(Math.round(v)));
+    let why='It uses about '+g(needGal)+' gallons a day. Its '+em+' emitter'+(em>1?'s':'')+' wet '+Math.round(wetPct*100)+'% of its root zone ('+root+' inches deep), which holds about '+maxI.toFixed(1)+' days of that water, so it is watered every '+(capped?'30 days or more':every===1?'day':every+' days')+' with '+g(gal)+' gallons.';
+    if(short) why+=' The wetted soil cannot hold a full day of water: add emitters so less drains past the roots.';
+    else if(wetPct<0.5) why+=' Extension guidance is to wet at least half the root zone; more emitters would stretch the days between waterings.';
     if(capped) why+=' In cool weather a monthly deep watering, or rain, is enough.';
-    if(hrs>6) why+=' Runtimes this long usually call for more emitters or a bubbler rather than more watering days.';
+    if(hrs>6) why+=' Runtimes this long call for more emitters or higher flow emitters.';
     $('why').textContent=why;
   }
 
