@@ -281,7 +281,7 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
           </div>
           <div class="strip" id="strip" aria-hidden="true"></div>
           <p class="why" id="why"></p>
-          <p class="fine"><strong style="color:#D6DCE3;font-weight:600">A planning estimate, not a prescription.</strong> How far water spreads under an emitter varies from yard to yard, so Congruent confirms every schedule with a soil probe on site. For established plants on pressure-compensating drip, 90% efficient. Each emitter wets a circle of soil about 3 feet across in sandy fill, 3.5 feet in sandy loam and 4 feet in loam, and only wetted soil stores water for the plant. Water is applied when half of that stored water is used. Weather: <span id="src">typical daily reference ET for the Lower Colorado River desert (CIMIS Zone 18)</span>; live readings, when available, come from the <a href="https://azmet.arizona.edu/application-areas/evapotranspiration/station-level-summaries/az40" rel="noopener">AZMET Fort Mohave station</a>. Plant water factors from WUCOLS Low Desert ratings, calibrated in the field. New plantings need more frequent water until established.</p>
+          <p class="fine"><strong style="color:#D6DCE3;font-weight:600">A planning estimate, not a prescription.</strong> How far water spreads under an emitter varies from yard to yard, so Congruent confirms every schedule with a soil probe on site. For established plants on pressure-compensating drip, 90% efficient. Each emitter wets a circle of soil about 3 feet across in sandy fill, 3.5 feet in sandy loam and 4 feet in loam, and only wetted soil stores water for the plant. Water is applied when half of that stored water is used. Weather: <span id="src">typical daily reference ET for the Lower Colorado River desert (CIMIS Zone 18)</span>; live readings, when available, come from the <a href="https://azmet.arizona.edu/application-areas/evapotranspiration/station-level-summaries/az40" rel="noopener">AZMET Fort Mohave station</a>. Plant water factors: ANSI/ASABE S623.1, with each plant classed by its WUCOLS V Low Desert rating (UC Davis, 2025) where one exists. New plantings need more frequent water until established.</p>
         </div>
       </div>
     </div>
@@ -369,13 +369,16 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
     $('plantmeta').innerHTML=(p[1]?'<i>'+esc(p[1])+'</i> · ':'')+esc(p[2])+' · class '+esc(p[3])+warn+'<br><span class="fine">'+esc(pfSource(p))+'</span>';
     return true;
   }
-  // Plant factor source. Published science governs: ANSI/ASABE S623.1 Table 1 (desert plants 0.3; woody plants and
-  // perennials in a dry climate 0.5). Where no published value fits (water-loving plants grown in the desert, fruit
-  // trees: S623.1 excludes food production), the Congruent field value is used and labelled as such.
+  // Plant factor source. Published science governs, one standard for every plant: ANSI/ASABE S623.1 Table 1 (desert
+  // plants 0.3; woody plants and perennials in a dry climate 0.5), with the class taken from the WUCOLS V Low Desert
+  // (Region 6) rating where WUCOLS rates the plant (UC Davis, 2025). p[10] holds that rating.
+  const W6={VL:'Very low (under 0.10)',LO:'Low (0.10 to 0.30)',M:'Moderate (0.40 to 0.60)',H:'High (0.70 to 0.90)',NA:'not appropriate for the low desert'};
   function pfSource(p){
-    if(p[4]===0.3) return 'Plant factor 0.3: ANSI/ASABE S623.1, desert plants.';
-    if(p[4]===0.5) return 'Plant factor 0.5: ANSI/ASABE S623.1, woody plants and perennials, dry climate.';
-    return 'Plant factor '+p[4]+': Congruent field value. No published standard covers water-loving plants grown in the desert.';
+    const w=p[10]||'', wl=w?' WUCOLS V Low Desert rating: '+W6[w]+'.':' WUCOLS V has no Low Desert rating for this plant.';
+    if(p[4]===0.3) return 'Plant factor 0.3: ANSI/ASABE S623.1, desert plants.'+wl;
+    if(p[4]===0.5) return 'Plant factor 0.5: ANSI/ASABE S623.1, woody plants and perennials, dry climate.'+wl;
+    if(w==='H') return 'Plant factor 0.8: middle of the WUCOLS V Low Desert High range (0.70 to 0.90). S623.1 gives no desert value for high water-use plants.';
+    return 'Plant factor '+p[4]+': Congruent planning value for a high water-use plant; no published low-desert value exists.'+wl;
   }
   function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 
