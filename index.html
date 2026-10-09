@@ -369,23 +369,36 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
     $('plantmeta').innerHTML=(p[1]?'<i>'+esc(p[1])+'</i> · ':'')+esc(p[2])+' · class '+esc(p[3])+warn+'<br><span class="fine">'+esc(pfSource(p))+'</span>';
     return true;
   }
-  // Citrus: University of Arizona Cooperative Extension AZ1151, Irrigating Citrus Trees (G. C. Wright, rev. 2021).
-  // Daily gallons = canopy area x reference ET x monthly citrus coefficient x 0.623 (the same form this calculator uses).
-  // Monthly coefficients Jan..Dec; grapefruit and lemon use about 20% more than orange, mandarins about 10% less.
-  const KC_CITRUS=[0.50,0.50,0.80,0.80,0.80,0.85,1.00,1.00,1.00,0.85,0.50,0.50];
-  function isCitrus(p){ return /^\s*(citrus|x\s*citrofortunella|fortunella)\b/i.test(p[1]||''); }
-  function citrusMult(p){ const b=(p[1]||'').toLowerCase();
-    if(/paradis|limon|meyeri/.test(b)) return {m:1.2, t:' Grapefruit and lemon: about 20% more than orange.'};
-    if(/reticulata/.test(b)) return {m:0.9, t:' Mandarins: about 10% less than orange.'};
-    return {m:1.0, t:''}; }
-  function citrusFactor(p,d){ if(!isCitrus(p)) return null; const mo=d.getMonth(), c=citrusMult(p);
-    return {kf:+(KC_CITRUS[mo]*c.m).toFixed(3), kc:KC_CITRUS[mo], note:c.t}; }
+  // Fruit trees grown for fruit: published monthly coefficients on the canopy area (same form as the rest of this
+  // calculator: gallons a day = canopy area x reference ET x coefficient x 0.623). Citrus: University of Arizona
+  // Extension AZ1151 (Wright, rev. 2021). Pecan: University of Arizona AZ2057 (2023) monthly means / 0.80 canopy.
+  // Stone fruit, apple/pear/cherry, almond, walnut: FAO-56 Table 12 stage values spread over the season / 0.70 canopy.
+  // Pomegranate: Buesa et al. (CIHEAM) / 0.56 canopy. Olive: FAO-56 Table 12 footnote 24 / 0.60 canopy.
+  // Ornamental, fruitless and flowering forms use the landscape standard (S623.1 with WUCOLS) instead.
+  const FRUIT=[
+    {re:/^\s*(citrus|x\s*citrofortunella|fortunella)\b/i, k:[0.50,0.50,0.80,0.80,0.80,0.85,1.00,1.00,1.00,0.85,0.50,0.50],
+     src:'University of Arizona Extension AZ1151, Irrigating Citrus Trees (2021)', mult:p=>{const b=(p[1]||'').toLowerCase();
+       if(/paradis|limon|meyeri/.test(b)) return {m:1.2,t:' Grapefruit and lemon: about 20% more than orange.'};
+       if(/reticulata/.test(b)) return {m:0.9,t:' Mandarins: about 10% less than orange.'}; return {m:1,t:''};}},
+    {re:/^\s*prunus\s+dulcis/i, k:[0.29,0.29,0.59,0.84,1.15,1.29,1.29,1.29,1.28,1.17,0.88,0.29], src:'FAO-56 Table 12, almond (0.40/0.90/0.65), on the canopy area'},
+    {re:/^\s*(malus\s+domestica|pyrus\s+(communis|pyrifolia)|prunus\s+avium)/i, k:[0.29,0.29,0.87,1.05,1.26,1.36,1.36,1.36,1.36,1.26,0.99,0.29], src:'FAO-56 Table 12, apple, pear and cherry (0.60/0.95/0.75), on the canopy area'},
+    {re:/^\s*prunus\s*(persica|armeniaca|amerniaca|salicina|domestica|varieties|x\s*'flavor)|^\s*prunus\s*$/i, k:[0.29,0.29,0.80,0.98,1.19,1.29,1.29,1.29,1.28,1.17,0.88,0.29], src:'FAO-56 Table 12, peach, nectarine, apricot and plum (0.55/0.90/0.65), on the canopy area'},
+    {re:/^\s*juglans\s*$/i, k:[0.29,0.29,0.74,1.04,1.41,1.57,1.57,1.57,1.57,1.36,0.93,0.29], src:'FAO-56 Table 12, walnut (0.50/1.10/0.65), on the canopy area'},
+    {re:/^\s*carya\s+illinoinensis/i, k:[0.25,0.25,0.49,0.79,1.11,1.27,1.29,1.30,1.38,1.41,0.92,0.25], src:'University of Arizona Extension AZ2057, pecan (2023), on the canopy area'},
+    {re:/^\s*punica\s+granatum/i, k:[0.36,0.36,0.57,0.76,0.95,1.13,1.32,1.18,1.04,0.89,0.75,0.36], src:'Buesa et al., pomegranate crop coefficients (CIHEAM), on the canopy area'},
+    {re:/^\s*olea\s+europaea\s+'(frantoio|koroneiki|manzanillo|mission)/i, k:[0.83,0.83,1.08,1.00,0.92,0.83,0.75,0.75,0.92,1.00,1.08,0.83], src:'FAO-56 Table 12 footnote 24, olive, on the canopy area'}
+  ];
+  function fruitOf(p){ return FRUIT.find(f=>f.re.test(p[1]||''))||null; }
+  function isCitrus(p){ const f=fruitOf(p); return !!f && f===FRUIT[0]; }
+  function citrusFactor(p,d){ const f=fruitOf(p); if(!f) return null; const mo=d.getMonth(), c=f.mult?f.mult(p):{m:1,t:''};
+    return {kf:+(f.k[mo]*c.m).toFixed(3), kc:f.k[mo], note:c.t, citrus:f===FRUIT[0]}; }
   // Plant factor source. Published science governs, one standard for every plant: ANSI/ASABE S623.1 Table 1 (desert
   // plants 0.3; woody plants and perennials in a dry climate 0.5), with the class taken from the WUCOLS V Low Desert
   // (Region 6) rating where WUCOLS rates the plant (UC Davis, 2025). p[10] holds that rating.
   const W6={VL:'Very low (under 0.10)',LO:'Low (0.10 to 0.30)',M:'Moderate (0.40 to 0.60)',H:'High (0.70 to 0.90)',NA:'not appropriate for the low desert'};
   function pfSource(p){
-    if(isCitrus(p)){ const c=citrusMult(p); return 'Citrus water factor changes by month: 0.50 in winter, 0.80 in spring, 1.00 in summer (University of Arizona Extension AZ1151, Irrigating Citrus Trees, 2021), applied to the canopy area.'+c.t+' WUCOLS V Low Desert rating: Moderate.'; }
+    const fr=fruitOf(p); if(fr){ const c=fr.mult?fr.mult(p):{t:''}; const lo=Math.min(...fr.k), hi=Math.max(...fr.k);
+      return 'Fruit tree: water factor changes by month, '+lo.toFixed(2)+' to '+hi.toFixed(2)+' ('+fr.src+').'+c.t+(p[10]?' WUCOLS V Low Desert rating: '+W6[p[10]]+'.':''); }
     const w=p[10]||'', wl=w?' WUCOLS V Low Desert rating: '+W6[w]+'.':' WUCOLS V has no Low Desert rating for this plant.';
     if(p[4]===0.3) return 'Plant factor 0.3: ANSI/ASABE S623.1, desert plants.'+wl;
     if(p[4]===0.5) return 'Plant factor 0.5: ANSI/ASABE S623.1, woody plants and perennials, dry climate.'+wl;
@@ -459,7 +472,8 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
     if(/Tree|Palm/.test(cur[2]) && wetPct<0.25) why+=' A tree this wide draws on roots well beyond its emitters; water it deeply out toward the dripline.';
     if(hrs>6) why+=' Runtimes this long call for a higher flow emitter.';
     if(/Cactus\/succulent/.test(cur[2])) why+=' Cacti and agaves store water in their own tissue, which this soil estimate does not count. University of Arizona guidance for established plants: about every 10 to 14 days in summer, every 21 to 28 days in spring and fall, and none in winter. When the guidance interval is longer, follow it.';
-    if(cit) why+=' Citrus this month: factor '+cit.kf.toFixed(2)+(cit.note?' ('+cit.kc.toFixed(2)+' for orange)':'')+'. University of Arizona guidance for established citrus on drip: wet the soil 2 feet deep from the trunk to just past the drip line; about every 14 days in winter, 7 to 10 days in spring, 5 to 7 days in May and June, 2 to 5 days in July to September, and 5 to 10 days in fall; shorter intervals on sandy or gravelly soil.';
+    if(cit && !cit.citrus) why+=' Fruit tree this month: water factor '+cit.kf.toFixed(2)+'. Values for fruit trees come from orchard research; deep, infrequent watering to the full root zone suits them.';
+    if(cit && cit.citrus) why+=' Citrus this month: factor '+cit.kf.toFixed(2)+(cit.note?' ('+cit.kc.toFixed(2)+' for orange)':'')+'. University of Arizona guidance for established citrus on drip: wet the soil 2 feet deep from the trunk to just past the drip line; about every 14 days in winter, 7 to 10 days in spring, 5 to 7 days in May and June, 2 to 5 days in July to September, and 5 to 10 days in fall; shorter intervals on sandy or gravelly soil.';
     if(/Not recommended/.test(suit[cur[9]]||'')) why='This is not a desert plant, and Congruent does not recommend it for Lake Havasu. If one is already in the ground: '+why;
     $('why').textContent=why;
   }
