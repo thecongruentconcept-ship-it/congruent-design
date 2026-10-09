@@ -366,8 +366,16 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
     cur=p; $('em').value=p[7]; $('gph').value=p[8]; $('width').value=p[5];
     const s=suit[p[9]]||'';
     const warn=/Not recommended/.test(s)?' <span class="warn">· Not recommended for Havasu</span>':(/care/.test(s)?' <span class="warn">· Use with care in Havasu</span>':'');
-    $('plantmeta').innerHTML=(p[1]?'<i>'+esc(p[1])+'</i> · ':'')+esc(p[2])+' · class '+esc(p[3])+warn;
+    $('plantmeta').innerHTML=(p[1]?'<i>'+esc(p[1])+'</i> · ':'')+esc(p[2])+' · class '+esc(p[3])+warn+'<br><span class="fine">'+esc(pfSource(p))+'</span>';
     return true;
+  }
+  // Plant factor source. Published science governs: ANSI/ASABE S623.1 Table 1 (desert plants 0.3; woody plants and
+  // perennials in a dry climate 0.5). Where no published value fits (water-loving plants grown in the desert, fruit
+  // trees: S623.1 excludes food production), the Congruent field value is used and labelled as such.
+  function pfSource(p){
+    if(p[4]===0.3) return 'Plant factor 0.3: ANSI/ASABE S623.1, desert plants.';
+    if(p[4]===0.5) return 'Plant factor 0.5: ANSI/ASABE S623.1, woody plants and perennials, dry climate.';
+    return 'Plant factor '+p[4]+': Congruent field value. No published standard covers water-loving plants grown in the desert.';
   }
   function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 
@@ -389,14 +397,14 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
     $('rootline').textContent='Root zone '+root+' inches deep. Water need grows with the width of the plant.';
     const em=Math.max(1,Math.round(+$('em').value||cur[7])), gph=Math.max(0.5,+$('gph').value||cur[8]);
     const micro=+$('sun').value, soilOpt=$('soil').selectedOptions[0], awc=+soilOpt.value, wetD=+soilOpt.dataset.wet;
-    // 1. Water the plant uses (WUCOLS landscape coefficient method): reference ET x species factor x microclimate.
+    // 1. Water the plant uses (ANSI/ASABE S623.1 method): reference ET x plant factor x microclimate.
     const use=et*kf*micro;                                   // inches of water a day over the root zone
     const area=Math.PI*Math.pow(spread/2,2);                 // root zone area, sq ft (canopy spread)
-    const needGal=use*area*0.623;                            // gallons the plant uses each day
+    const needGal=use*area*0.623377;                            // gallons the plant uses each day
     // 2. Water the soil can hold for it: only the soil the emitters actually wet stores water.
     const wetArea=Math.min(area, em*Math.PI*Math.pow(wetD/2,2));
     const wetPct=wetArea/area;
-    const storeGal=awc*(root/12)*0.5*wetArea*0.623;          // half the available water in the wetted root zone
+    const storeGal=awc*(root/12)*0.5*wetArea*0.623377;          // half the available water in the wetted root zone
     const maxI=storeGal/needGal;                              // days until half the stored water is used
     // 3. Schedule: water before the reserve runs out, then refill what was used, plus drip losses (90% efficient).
     let rec=Math.max(1,Math.floor(maxI));
@@ -435,6 +443,8 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
     if(capped) why+=' In cool weather a monthly deep watering, or rain, is enough.';
     if(/Tree|Palm/.test(cur[2]) && wetPct<0.25) why+=' A tree this wide draws on roots well beyond its emitters; water it deeply out toward the dripline.';
     if(hrs>6) why+=' Runtimes this long call for a higher flow emitter.';
+    if(/Cactus\/succulent/.test(cur[2])) why+=' Cacti and agaves store water in their own tissue, which this soil estimate does not count. University of Arizona guidance for established plants: about every 10 to 14 days in summer, every 21 to 28 days in spring and fall, and none in winter. When the guidance interval is longer, follow it.';
+    if(/Not recommended/.test(suit[cur[9]]||'')) why='This is not a desert plant, and Congruent does not recommend it for Lake Havasu. If one is already in the ground: '+why;
     $('why').textContent=why;
   }
 
