@@ -82,6 +82,16 @@ h2{font-family:var(--serif);font-weight:500;font-size:clamp(34px,4.2vw,52px);lin
 
 /* calculator — the signature */
 .water{background:var(--navy);padding:104px 0;border-top:1px solid rgba(198,146,58,.3);border-bottom:1px solid rgba(198,146,58,.3)}
+.plan{margin-top:64px;padding-top:40px;border-top:1px solid rgba(198,146,58,.35);display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:start}
+.plan h3{font-family:var(--serif);font-size:34px;font-weight:600;line-height:1.15;color:var(--mist)}
+.plan p{color:var(--silver);margin-top:14px;max-width:34em}
+.plan ol{list-style:none;counter-reset:p;margin:0;padding:0}
+.plan ol li{counter-increment:p;padding:14px 0 14px 44px;border-bottom:1px solid rgba(184,193,204,.18);position:relative;color:var(--mist);font-size:15.5px}
+.plan ol li::before{content:counter(p);position:absolute;left:0;top:10px;font-family:var(--serif);font-size:26px;color:var(--brass)}
+.plan ol li span{display:block;color:var(--silver);font-size:14px;margin-top:2px}
+.plan .actions{margin-top:26px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.plan .actions a.tel{color:var(--silver);font-size:15px}
+@media (max-width:860px){.plan{grid-template-columns:1fr;gap:28px}}
 .water .intro{margin-top:18px;max-width:42em;color:var(--silver)}
 .calc{margin-top:48px;display:grid;grid-template-columns:minmax(280px,380px) 1fr;gap:48px;align-items:start}
 @media (max-width:900px){.calc{grid-template-columns:1fr;gap:36px}}
@@ -281,8 +291,24 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
           </div>
           <div class="strip" id="strip" aria-hidden="true"></div>
           <p class="why" id="why"></p>
-          <p class="fine"><strong style="color:#D6DCE3;font-weight:600">A planning estimate, not a prescription.</strong> How far water spreads under an emitter varies from yard to yard, so Congruent confirms every schedule with a soil probe on site. For established plants on pressure-compensating drip, 90% efficient. Each 1 gallon-per-hour emitter wets a circle of soil about 1.5 feet across in sand and 3 feet across in sandy loam and loam (USDA NRCS National Engineering Handbook 623, Ch. 7, Table 7-14), and only wetted soil stores water for the plant. Soil water-holding: Lake Havasu soil survey values (USDA NRCS SSURGO, Mohave County AZ627: about 0.05 in/in in wash sands, 0.11 in/in in the common gravelly loams) and a typical loam (about 0.15 in/in; USDA texture tables). Water is applied when half of that stored water is used. Weather: <span id="src">typical daily reference ET for the Lower Colorado River desert (CIMIS Zone 18)</span>; live readings, when available, come from the <a href="https://azmet.arizona.edu/application-areas/evapotranspiration/station-level-summaries/az40" rel="noopener">AZMET Fort Mohave station</a>. Plant water factors: ANSI/ASABE S623.1, with each plant classed by its WUCOLS V Low Desert rating (UC Davis, 2025) where one exists. New plantings need more frequent water until established.</p>
+          <p class="fine"><strong style="color:#D6DCE3;font-weight:600">A planning estimate, not a prescription.</strong> How far water spreads under an emitter varies from yard to yard, so Congruent confirms every schedule with a soil probe on site. For established plants on pressure-compensating drip, 90% efficient. Each 1 gallon-per-hour emitter wets a circle of soil about 1.5 feet across in sand and 3 feet across in sandy loam and loam (USDA NRCS National Engineering Handbook 623, Ch. 7, Table 7-14), and only wetted soil stores water for the plant. Soil water-holding: Lake Havasu soil survey values (USDA NRCS SSURGO, Mohave County AZ627: about 0.05 in/in in wash sands, 0.11 in/in in the common gravelly loams) and a typical loam (about 0.15 in/in; USDA texture tables). Water is applied when half of that stored water is used. Weather: <span id="src">typical daily reference ET for the Lower Colorado River desert (CIMIS Zone 18)</span>; live readings, when available, come from the <a href="https://azmet.arizona.edu/application-areas/evapotranspiration/station-level-summaries/az40" rel="noopener">AZMET Fort Mohave station</a>. Plant water factors: ANSI/ASABE S623.1, with each plant classed by its WUCOLS V Low Desert rating where one exists (WUCOLS V, California Center for Urban Horticulture, University of California, Davis, 2025). AZMET data are used as published by the University of Arizona; AZMET does not endorse this calculator. New plantings need more frequent water until established.</p>
         </div>
+      </div>
+      <div class="plan" id="plan" aria-labelledby="plan-h">
+        <div>
+          <h3 id="plan-h">One plant is an estimate. A property deserves a plan.</h3>
+          <p>The Property Water Plan applies the same published science to every zone and every plant on your property, then measures what your system actually delivers. Each schedule is backed by a field test, not a guess.</p>
+          <div class="actions">
+            <a class="btn solid" id="plan-cta" href="mailto:thecongruentconcept@gmail.com?subject=Property%20Water%20Plan%20request">Request a Property Water Plan</a>
+            <a class="tel" href="tel:+17028638618">or call 702.863.8618</a>
+          </div>
+        </div>
+        <ol>
+          <li>On-site assessment<span>Soil probed in every zone; plants, exposure and emitters recorded.</span></li>
+          <li>Field uniformity test<span>32 emitter readings at 16 plants per zone, the USDA NRCS method, graded on its scale.</span></li>
+          <li>Month-by-month schedule<span>Every zone run time and interval, from ANSI/ASABE S623.1, Arizona Extension and measured soil.</span></li>
+          <li>Corrections that save water<span>Emitter, layout and pressure fixes to the NRCS design standard, in priority order.</span></li>
+        </ol>
       </div>
     </div>
   </section>
@@ -476,6 +502,8 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
     if(cit && cit.citrus) why+=' Citrus this month: factor '+cit.kf.toFixed(2)+(cit.note?' ('+cit.kc.toFixed(2)+' for orange)':'')+'. University of Arizona guidance for established citrus on drip: wet the soil 2 feet deep from the trunk to just past the drip line; about every 14 days in winter, 7 to 10 days in spring, 5 to 7 days in May and June, 2 to 5 days in July to September, and 5 to 10 days in fall; shorter intervals on sandy or gravelly soil.';
     if(/Not recommended/.test(suit[cur[9]]||'')) why='This is not a desert plant, and Congruent does not recommend it for Lake Havasu. If one is already in the ground: '+why;
     $('why').textContent=why;
+    try{ const body='Hello Mike,\n\nI would like a Property Water Plan for my property.\n\nName:\nAddress:\nPhone:\nBest time to reach me:\n\nFrom the calculator: '+cur[0]+', '+($('r-every').textContent||'').trim()+', '+($('r-run').textContent||'').trim()+' per watering.\n';
+      $('plan-cta').href='mailto:thecongruentconcept@gmail.com?subject='+encodeURIComponent('Property Water Plan request')+'&body='+encodeURIComponent(body); }catch(e){}
   }
 
   document.querySelectorAll('.seg button').forEach(b=>b.addEventListener('click',()=>{
