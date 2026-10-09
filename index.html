@@ -369,11 +369,23 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
     $('plantmeta').innerHTML=(p[1]?'<i>'+esc(p[1])+'</i> · ':'')+esc(p[2])+' · class '+esc(p[3])+warn+'<br><span class="fine">'+esc(pfSource(p))+'</span>';
     return true;
   }
+  // Citrus: University of Arizona Cooperative Extension AZ1151, Irrigating Citrus Trees (G. C. Wright, rev. 2021).
+  // Daily gallons = canopy area x reference ET x monthly citrus coefficient x 0.623 (the same form this calculator uses).
+  // Monthly coefficients Jan..Dec; grapefruit and lemon use about 20% more than orange, mandarins about 10% less.
+  const KC_CITRUS=[0.50,0.50,0.80,0.80,0.80,0.85,1.00,1.00,1.00,0.85,0.50,0.50];
+  function isCitrus(p){ return /^\s*(citrus|x\s*citrofortunella|fortunella)\b/i.test(p[1]||''); }
+  function citrusMult(p){ const b=(p[1]||'').toLowerCase();
+    if(/paradis|limon|meyeri/.test(b)) return {m:1.2, t:' Grapefruit and lemon: about 20% more than orange.'};
+    if(/reticulata/.test(b)) return {m:0.9, t:' Mandarins: about 10% less than orange.'};
+    return {m:1.0, t:''}; }
+  function citrusFactor(p,d){ if(!isCitrus(p)) return null; const mo=d.getMonth(), c=citrusMult(p);
+    return {kf:+(KC_CITRUS[mo]*c.m).toFixed(3), kc:KC_CITRUS[mo], note:c.t}; }
   // Plant factor source. Published science governs, one standard for every plant: ANSI/ASABE S623.1 Table 1 (desert
   // plants 0.3; woody plants and perennials in a dry climate 0.5), with the class taken from the WUCOLS V Low Desert
   // (Region 6) rating where WUCOLS rates the plant (UC Davis, 2025). p[10] holds that rating.
   const W6={VL:'Very low (under 0.10)',LO:'Low (0.10 to 0.30)',M:'Moderate (0.40 to 0.60)',H:'High (0.70 to 0.90)',NA:'not appropriate for the low desert'};
   function pfSource(p){
+    if(isCitrus(p)){ const c=citrusMult(p); return 'Citrus water factor changes by month: 0.50 in winter, 0.80 in spring, 1.00 in summer (University of Arizona Extension AZ1151, Irrigating Citrus Trees, 2021), applied to the canopy area.'+c.t+' WUCOLS V Low Desert rating: Moderate.'; }
     const w=p[10]||'', wl=w?' WUCOLS V Low Desert rating: '+W6[w]+'.':' WUCOLS V has no Low Desert rating for this plant.';
     if(p[4]===0.3) return 'Plant factor 0.3: ANSI/ASABE S623.1, desert plants.'+wl;
     if(p[4]===0.5) return 'Plant factor 0.5: ANSI/ASABE S623.1, woody plants and perennials, dry climate.'+wl;
@@ -396,7 +408,7 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
     $('src').textContent=src;
     $('etline').textContent=mode==='et'?'':(mode==='today'&&live?'Measured '+fmtDate(live.date)+': '+live.v.toFixed(2)+' in/day':'Typical for '+fmtDate(start)+': '+typicalET(start).toFixed(2)+' in/day');
 
-    const kf=cur[4], root=cur[6], spread=Math.min(60,Math.max(1,+$('width').value||cur[5]));
+    const cit=citrusFactor(cur,start), kf=cit?cit.kf:cur[4], root=cur[6], spread=Math.min(60,Math.max(1,+$('width').value||cur[5]));
     $('rootline').textContent='Root zone '+root+' inches deep. Water need grows with the width of the plant.';
     const em=Math.max(1,Math.round(+$('em').value||cur[7])), gph=Math.max(0.5,+$('gph').value||cur[8]);
     const micro=+$('sun').value, soilOpt=$('soil').selectedOptions[0], awc=+soilOpt.value, wetD=+soilOpt.dataset.wet;
@@ -447,6 +459,7 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
     if(/Tree|Palm/.test(cur[2]) && wetPct<0.25) why+=' A tree this wide draws on roots well beyond its emitters; water it deeply out toward the dripline.';
     if(hrs>6) why+=' Runtimes this long call for a higher flow emitter.';
     if(/Cactus\/succulent/.test(cur[2])) why+=' Cacti and agaves store water in their own tissue, which this soil estimate does not count. University of Arizona guidance for established plants: about every 10 to 14 days in summer, every 21 to 28 days in spring and fall, and none in winter. When the guidance interval is longer, follow it.';
+    if(cit) why+=' Citrus this month: factor '+cit.kf.toFixed(2)+(cit.note?' ('+cit.kc.toFixed(2)+' for orange)':'')+'. University of Arizona guidance for established citrus on drip: wet the soil 2 feet deep from the trunk to just past the drip line; about every 14 days in winter, 7 to 10 days in spring, 5 to 7 days in May and June, 2 to 5 days in July to September, and 5 to 10 days in fall; shorter intervals on sandy or gravelly soil.';
     if(/Not recommended/.test(suit[cur[9]]||'')) why='This is not a desert plant, and Congruent does not recommend it for Lake Havasu. If one is already in the ground: '+why;
     $('why').textContent=why;
   }
