@@ -61,6 +61,34 @@ h2{font-family:var(--serif);font-weight:500;font-size:clamp(34px,4.2vw,52px);lin
 .badge img{width:100%;height:auto;aspect-ratio:320/322}
 @media (max-width:860px){.hero{padding:56px 0 64px}.hero .wrap{grid-template-columns:1fr;gap:40px}.badge{justify-self:start;width:220px}}
 
+/* design work: day / dusk */
+.work{background:var(--navy);padding:104px 0}
+.work .sub{margin-top:18px;color:var(--silver);max-width:36em}
+.dd{margin-top:44px;display:grid;grid-template-columns:minmax(0,1fr);gap:18px}
+.dd-stage{position:relative;aspect-ratio:4/3;max-width:100%;max-height:78vh;margin:0 auto;width:100%;overflow:hidden;border-radius:4px;background:#08121C;user-select:none;touch-action:pan-y;--pos:50%;--dayop:0}
+.dd-stage.portrait{aspect-ratio:880/1168;width:auto;height:min(78vh,900px)}
+.dd-stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.dd-stage.slide .top{clip-path:inset(0 calc(100% - var(--pos)) 0 0)}
+.dd-stage.fade .top{opacity:var(--dayop);transition:opacity .5s ease}
+.dd-bar{position:absolute;top:0;bottom:0;left:var(--pos);width:1px;background:var(--mist);pointer-events:none}
+.dd-knob{position:absolute;top:50%;left:var(--pos);width:42px;height:42px;margin:-21px 0 0 -21px;border-radius:50%;background:var(--mist);color:var(--night);display:grid;place-items:center;font-size:15px;box-shadow:0 4px 18px rgba(0,0,0,.4);pointer-events:none}
+.dd-stage input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.dd-stage.fade .dd-bar,.dd-stage.fade .dd-knob,.dd-stage.fade input{display:none}
+.dd-meta{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.dd-meta .t{font-family:var(--serif);font-size:24px}
+.dd-meta .h{font-size:13px;color:#8D9AA9}
+.dd-tog{display:inline-flex;border:1px solid rgba(184,193,204,.35);border-radius:999px;padding:3px;gap:2px}
+.dd-tog button{border:0;background:none;color:var(--silver);font:600 12px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;padding:9px 14px;border-radius:999px;cursor:pointer}
+.dd-tog button[aria-pressed="true"]{background:var(--brass);color:var(--night)}
+.dd-thumbs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.dd-thumbs button{all:unset;cursor:pointer;display:flex;flex-direction:column;gap:8px;min-width:0}
+.dd-thumbs img{aspect-ratio:4/3;width:100%;object-fit:cover;border-radius:3px;opacity:.55;transition:opacity .2s;outline:1px solid transparent}
+.dd-thumbs button:hover img{opacity:.85}
+.dd-thumbs button[aria-current="true"] img{opacity:1;outline:2px solid var(--brass);outline-offset:2px}
+.dd-thumbs span{font-size:13px;color:var(--silver);line-height:1.35}
+.dd-thumbs button:focus-visible{outline:2px solid var(--brass-soft);outline-offset:3px;border-radius:3px}
+@media (max-width:720px){.dd-thumbs{gap:8px}.dd-thumbs span{display:none}.dd-stage.portrait{height:auto;width:100%}}
+
 /* light sections */
 .section{padding:104px 0}
 .light{background:var(--mist);color:var(--ink)}
@@ -159,6 +187,7 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
     <a class="brand" href="#top" aria-label="Congruent Concepts home"><img src="assets/cc-monogram.png" alt=""><span>Congruent Concepts</span></a>
     <nav class="nav" aria-label="Main">
       <a href="#services">Services</a>
+      <a href="#work">Design work</a>
       <a href="#method">Method</a>
       <a href="#water">Watering calculator</a>
       <a href="#experience">Experience</a>
@@ -212,6 +241,23 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
         <li><h3>Execute</h3><p>Built by licensed contractors, with Congruent confirming the work matches the plan.</p></li>
         <li><h3>Steward</h3><p>After handover, we assess the landscape and direct the care it needs.</p></li>
       </ol>
+    </div>
+  </section>
+
+  <section class="work" id="work" aria-labelledby="work-h">
+    <div class="wrap">
+      <h2 id="work-h">By day, and after dark.</h2>
+      <p class="sub">Every design is presented in daylight and at dusk, so planting, stone and lighting are settled together before anything is built. Drag across the image to compare.</p>
+      <div class="dd">
+        <div class="dd-stage slide" id="ddStage">
+          <img id="ddDusk" alt="">
+          <img id="ddDay" class="top" alt="">
+          <div class="dd-bar"></div><div class="dd-knob" aria-hidden="true">&#8646;</div>
+          <input type="range" id="ddRange" min="0" max="100" value="50" aria-label="Compare day and dusk">
+        </div>
+        <div class="dd-meta"><span class="t" id="ddTitle"></span><span class="dd-tog" id="ddTog"><button type="button" data-s="day" aria-pressed="false">Day</button><button type="button" data-s="dusk" aria-pressed="false">Dusk</button></span></div>
+        <div class="dd-thumbs" id="ddThumbs"></div>
+      </div>
     </div>
   </section>
 
@@ -523,6 +569,40 @@ footer em{font-family:var(--serif);font-size:18px;color:var(--silver)}
     dl.appendChild(frag);
     pickPlant($('plant').value)||pickPlant(plants[0][0]); calc(); tryLive();
   }).catch(()=>{ $('when').textContent='The plant library could not load. Refresh the page to try again.'; });
+})();
+</script>
+<script>
+(function(){
+  var W=[
+    {t:'Courtyard putting green',d:'green-aerial-day',n:'green-aerial-dusk'},
+    {t:'Hillside infinity edge',d:'pool-day',n:'pool-dusk',fade:true},
+    {t:'Bocce court and practice green',d:'bocce-day',n:'bocce-dusk'},
+    {t:'Date palm courtyard',d:'palms-golden',n:'palms-fire-dusk',ar:'1184/864'},
+    {t:'Lakefront beach',d:'lake-sunset',n:'lake-dusk',portrait:true,dl:'Sunset'}
+  ];
+  var st=document.getElementById('ddStage'),dy=document.getElementById('ddDay'),dn=document.getElementById('ddDusk'),
+      rg=document.getElementById('ddRange'),tg=document.getElementById('ddTog'),th=document.getElementById('ddThumbs'),cur=W[0];
+  function mark(s){tg.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.s===s?'true':'false')});}
+  function setState(s){ if(cur.fade){st.style.setProperty('--dayop',s==='day'?1:0);} else {var v=s==='day'?100:0; rg.value=v; st.style.setProperty('--pos',v+'%');} mark(s); }
+  function load(i){
+    cur=W[i];
+    st.className='dd-stage '+(cur.fade?'fade':'slide')+(cur.portrait?' portrait':'');
+    st.style.aspectRatio=cur.ar||'';
+    dn.src='assets/work/'+cur.n+'.jpg'; dn.alt=cur.t+' at dusk';
+    dy.src='assets/work/'+cur.d+'.jpg'; dy.alt=cur.t+' by '+(cur.dl||'day').toLowerCase();
+    document.getElementById('ddTitle').textContent=cur.t;
+    tg.querySelector('[data-s=day]').textContent=cur.dl||'Day';
+    if(cur.fade){st.style.setProperty('--dayop',0); mark('dusk');} else {rg.value=50; st.style.setProperty('--pos','50%'); mark('');}
+    th.querySelectorAll('button').forEach(function(b,k){b.setAttribute('aria-current',k===i?'true':'false')});
+  }
+  W.forEach(function(w,i){
+    var b=document.createElement('button'); b.type='button'; b.setAttribute('aria-label','Show '+w.t);
+    b.innerHTML='<img loading="lazy" alt="" src="assets/work/'+w.n+'-sm.jpg"><span></span>';
+    b.querySelector('span').textContent=w.t; b.addEventListener('click',function(){load(i)}); th.appendChild(b);
+  });
+  rg.addEventListener('input',function(){st.style.setProperty('--pos',rg.value+'%'); mark('');});
+  tg.addEventListener('click',function(e){var b=e.target.closest('button'); if(b) setState(b.dataset.s);});
+  load(0);
 })();
 </script>
 </body>
